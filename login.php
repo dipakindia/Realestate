@@ -1,27 +1,44 @@
+<?php include('includes/config.php');
+	$error = '';
+if(isset($_POST['login_submit'])){
+	//echo '<pre>';
+	//print_r($_POST);
+
+	$sql = mysql_query("SELECT * FROM `tbl_user_records` WHERE `email_id` = '".$_POST['email']."' AND `password` = '".$_POST['password']."' AND `status` = '1'");
+	if(mysql_num_rows($sql) > 0){
+		$row = mysql_fetch_object($sql);
+		//print_r($row);
+		$_SESSION['isLogin'] = true;
+		$_SESSION['user_id'] = $row->id;
+		$_SESSION['userData'] = array(
+			"first_name" => $row->first_name, 
+			"last_name" => $row->last_name, 
+			"email" => $row->email_id,
+			"mobile" => $row->mobile
+		);
+		if($row->is_merchant == 1){
+			$_SESSION['isAgent'] = true;
+			header("location: user-profile.php");
+			/*//echo '<script>window.location = "my_profile.php";</script>';
+			//exit();*/
+		}else{
+			$_SESSION['isAgent'] = false;
+			header("location: index.php");
+			/*echo "<script>window.location = 'index.php';</script>";
+			exit();*/
+		}
+	}else{
+		$error = "Invalid Login Details";
+	}
+}
+?>
 <!DOCTYPE html>
 <html lang="zxx">
 <head>
     <title>Login</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta charset="utf-8">
-    <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="css/animate.min.css">
-    <link rel="stylesheet" type="text/css" href="css/bootstrap-submenu.css">
-    <link rel="stylesheet" type="text/css" href="css/bootstrap-select.min.css">
-    <link rel="stylesheet" href="css/leaflet.css" type="text/css">
-    <link rel="stylesheet" href="css/map.css" type="text/css">
-    <link rel="stylesheet" type="text/css" href="fonts/font-awesome/css/font-awesome.min.css">
-    <link rel="stylesheet" type="text/css" href="fonts/flaticon/font/flaticon.css">
-    <link rel="stylesheet" type="text/css" href="fonts/linearicons/style.css">
-    <link rel="stylesheet" type="text/css"  href="css/jquery.mCustomScrollbar.css">
-    <link rel="stylesheet" type="text/css"  href="css/dropzone.css">
-    <link rel="stylesheet" type="text/css"  href="css/magnific-popup.css">
-    <link rel="stylesheet" type="text/css" href="css/style.css">
-    <link rel="stylesheet" type="text/css" id="style_sheet" href="css/skins/default.css">
-    <link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon" >
-    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700,800%7CPlayfair+Display:400,700%7CRoboto:100,300,400,400i,500,700">
-    <link rel="stylesheet" type="text/css" href="css/ie10-viewport-bug-workaround.css">
-    <script src="js/ie-emulation-modes-warning.js"></script>
+<?php include('includes/head.php'); ?>
 </head>
 <body>
 <div class="page_loader"></div>
@@ -34,12 +51,13 @@
                         <div class="main-title">
                             <h1>Login</h1>
                         </div>
-                        <form action="index.html" method="GET">
+						<?php if($error){ ?><div class="error-msg"><?php echo $error; ?></div><?php } ?>
+                        <form action="" method="post">
                             <div class="form-group">
                                 <input type="email" name="email" class="input-text" placeholder="Email Address">
                             </div>
                             <div class="form-group">
-                                <input type="password" name="Password" class="input-text" placeholder="Password">
+                                <input type="password" name="password" class="input-text" placeholder="Password">
                             </div>
                             <div class="checkbox">
                                 <div class="ez-checkbox pull-left">
@@ -48,17 +66,17 @@
                                         Remember me
                                     </label>
                                 </div>
-                                <a href="forgot-password.html" class="link-not-important pull-right">Forgot Password</a>
+                                <a href="forgot-password.php" class="link-not-important pull-right">Forgot Password</a>
                                 <div class="clearfix"></div>
                             </div>
                             <div class="form-group">
-                                <button type="submit" class="button-md button-theme btn-block">login</button>
+                                <button type="submit" name="login_submit" class="button-md button-theme btn-block">login</button>
                             </div>
                         </form>
                     </div>
                     <div class="footer">
                         <span>
-                            New Here? <a href="signup.html">Sign up now</a>
+                            New Here? <a href="signup.php">Sign up now</a>
                         </span>
                     </div>
                 </div>

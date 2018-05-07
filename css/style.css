@@ -7285,3 +7285,18 @@ table.manage-table .title-container .title span {
 }
 
 
+.success-msg {
+    background: #00630D;
+    padding: 7px 15px;
+    color: #fff;
+    font: 15px calibri;
+	margin-bottom:10px;
+}
+.error-msg {
+    background: red;
+    padding: 7px 15px;
+    color: #fff;
+    font: 15px calibri;
+		margin-bottom:10px;
+}
+
