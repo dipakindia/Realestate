@@ -1,4 +1,4 @@
-<?php include('includes/config.php');
+<?php //include('includes/config.php');
 $error = $success = '';
 if(isset($_POST['sign_submit'])){
 	echo '<pre>';
@@ -90,8 +90,8 @@ if(isset($_POST['sign_submit'])){
                                     <div class="form-group">
                                         <label>Status</label>
                                         <select class="selectpicker search-fields" name="property_status">
-                                            <option>For Sale</option>
-                                            <option>For Rent</option>
+                                            <option value="for-sale">For Sale</option>
+                                            <option value="for-rent">For Rent</option>
                                         </select>
                                     </div>
                                 </div>
@@ -99,11 +99,11 @@ if(isset($_POST['sign_submit'])){
                                     <div class="form-group">
                                         <label>Type</label>
                                         <select class="selectpicker search-fields" name="property_type">
-                                            <option>House</option>
-                                            <option>Residential</option>
-                                            <option>Apartment</option>
-                                            <option>Co-Space</option>
-                                            <option>Student Space</option>
+                                            <option value="House">House</option>
+                                            <option value="Residential">Residential</option>
+                                            <option value="Apartment">Apartment</option>
+                                            <option value="Co-Space">Co-Space</option>
+                                            <option value="Student Space">Student Space</option>
                                         </select>
                                     </div>
                                 </div>
@@ -125,12 +125,12 @@ if(isset($_POST['sign_submit'])){
                                     <div class="form-group">
                                         <label>Rooms</label>
                                         <select class="selectpicker search-fields" name="rooms">
-                                            <option>1</option>
-                                            <option>2</option>
-                                            <option>3</option>
-                                            <option>4</option>
-                                            <option>5</option>
-                                            <option>6</option>
+                                            <option value="1">1</option>
+                                            <option value="2">2</option>
+                                            <option value="3">3</option>
+                                            <option value="4">4</option>
+                                            <option value="5">5</option>
+                                            <option value="6">6</option>
                                         </select>
                                     </div>
                                 </div>
@@ -138,12 +138,12 @@ if(isset($_POST['sign_submit'])){
                                     <div class="form-group">
                                         <label>Bathroom</label>
                                         <select class="selectpicker search-fields" name="bathrooms">
-                                            <option>1</option>
-                                            <option>2</option>
-                                            <option>3</option>
-                                            <option>4</option>
-                                            <option>5</option>
-                                            <option>6</option>
+                                            <option value="1">1</option>
+                                            <option value="2">2</option>
+                                            <option value="3">3</option>
+                                            <option value="4">4</option>
+                                            <option value="5">5</option>
+                                            <option value="6">6</option>
                                         </select>
                                     </div>
                                 </div>
@@ -168,15 +168,15 @@ if(isset($_POST['sign_submit'])){
                             <div class="col-md-6 col-sm-6">
                                 <div class="form-group">
                                     <label>City</label>
-                                    <select class="selectpicker search-fields" name="city" data-live-search="true" data-live-search-placeholder="Search value">
-                                        <option>Choose City</option>
+                                    <select class="selectpicker search-fields" name="country" data-live-search="true" data-live-search-placeholder="Search value">
+                                        <option>Choose country</option>
                                         <option>Ontario</option>
                                         <option>Quebec</option>
                                         <option>British Columbia</option>
                                     </select>
                                 </div>
                             </div>
-                            <div class="col-md-6 col-sm-6">
+                            <div class="col-md-4 col-sm-4">
                                 <div class="form-group">
                                     <label>State</label>
                                     <select class="selectpicker search-fields" name="state" data-live-search="true" data-live-search-placeholder="Search value">
@@ -185,7 +185,18 @@ if(isset($_POST['sign_submit'])){
                                     </select>
                                 </div>
                             </div>
-                            <div class="col-md-6 col-sm-6">
+                            <div class="col-md-4 col-sm-4">
+                                <div class="form-group">
+                                    <label>City</label>
+                                    <select class="selectpicker search-fields" name="city" data-live-search="true" data-live-search-placeholder="Search value">
+                                        <option>Choose City</option>
+                                        <option>Ontario</option>
+                                        <option>Quebec</option>
+                                        <option>British Columbia</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-4 col-sm-4">
                                 <div class="form-group">
                                     <label>Postal Code</label>
                                     <input type="text" class="input-text" name="pincode"  placeholder="Postal Code">
