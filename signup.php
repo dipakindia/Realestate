@@ -34,18 +34,31 @@
                         <div class="main-title">
                             <h1><span>Signup</span></h1>
                         </div>
-                        <form action="index.html" method="GET">
+                        <form action="" method="post">
                             <div class="form-group">
-                                <input type="text" name="fullname" class="input-text" placeholder="Full Name">
+                                <div class="row">
+                                    <div class="col-lg-6" style="text-align:left">
+                                    	<input type="radio" name="user_type" class="input-radio" checked > User
+                                    </div>
+                                    <div class="col-lg-6"  style="text-align:left">
+                                    	<input type="radio" name="user_type" class="input-radio" > Agent / Owner
+                                    </div>
+                                </div>
                             </div>
                             <div class="form-group">
-                                <input type="email" name="email" class="input-text" placeholder="Email Address">
+                                <input type="text" name="fullname" class="input-text" placeholder="Enter Full Name">
                             </div>
                             <div class="form-group">
-                                <input type="password" name="password" class="input-text" placeholder="Password">
+                                <input type="email" name="email" class="input-text" placeholder="Enter Email Address">
                             </div>
                             <div class="form-group">
-                                <input type="password" name="confirm_Password" class="input-text" placeholder="Confirm Password">
+                                <input type="text" name="mobile" class="input-text" placeholder="Enter Mobile No.">
+                            </div>
+                            <div class="form-group">
+                                <input type="password" name="password" class="input-text" placeholder="Enter Password">
+                            </div>
+                            <div class="form-group">
+                                <input type="password" name="confirm_Password" class="input-text" placeholder="Enter Confirm Password">
                             </div>
                             <div class="form-group">
                                 <button type="submit" class="button-md button-theme btn-block">Signup</button>
@@ -54,7 +67,7 @@
                     </div>
                     <div class="footer">
                         <span>
-                            Already Registered? <a href="login.html">Login Here</a>
+                            Already Registered? <a href="login.php">Login Here</a>
                         </span>
                     </div>
                 </div>
