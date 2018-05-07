@@ -1,27 +1,26 @@
+<?php include('includes/config.php');
+$error = $success = '';
+if(isset($_POST['sign_submit'])){
+	//echo '<pre>';
+	//print_r($_POST);
+		$sql = mysql_query("SELECT * FROM `tbl_user_records` WHERE `email_id` = '".$_POST['email']."'");
+	if(mysql_num_rows($sql) > 0){
+		$row = mysql_fetch_object($sql);
+		$success = "Password successfully sent on your registered mailId.";
+	}else{
+		$error = "Email id not exists!! Please try another.";
+	}
+}
+?>
 <!DOCTYPE html>
 <html lang="zxx">
 <head>
-    <title>Forget Password</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta charset="utf-8">
-    <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="css/animate.min.css">
-    <link rel="stylesheet" type="text/css" href="css/bootstrap-submenu.css">
-    <link rel="stylesheet" type="text/css" href="css/bootstrap-select.min.css">
-    <link rel="stylesheet" href="css/leaflet.css" type="text/css">
-    <link rel="stylesheet" href="css/map.css" type="text/css">
-    <link rel="stylesheet" type="text/css" href="fonts/font-awesome/css/font-awesome.min.css">
-    <link rel="stylesheet" type="text/css" href="fonts/flaticon/font/flaticon.css">
-    <link rel="stylesheet" type="text/css" href="fonts/linearicons/style.css">
-    <link rel="stylesheet" type="text/css"  href="css/jquery.mCustomScrollbar.css">
-    <link rel="stylesheet" type="text/css"  href="css/dropzone.css">
-    <link rel="stylesheet" type="text/css"  href="css/magnific-popup.css">
-    <link rel="stylesheet" type="text/css" href="css/style.css">
-    <link rel="stylesheet" type="text/css" id="style_sheet" href="css/skins/default.css">
-    <link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon" >
-    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700,800%7CPlayfair+Display:400,700%7CRoboto:100,300,400,400i,500,700">
-    <link rel="stylesheet" type="text/css" href="css/ie10-viewport-bug-workaround.css">
-    <script src="js/ie-emulation-modes-warning.js"></script>
+<title>Forgot Password</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="utf-8">
+<?php include('includes/head.php'); ?>
+<!DOCTYPE html>
+
 </head>
 <body>
 <div class="page_loader"></div>
@@ -34,18 +33,24 @@
                         <div class="main-title">
                             <h1>Forgot Password</h1>
                         </div>
-                        <form action="index.html" method="GET">
+                        <?php if($error){ ?>
+							<div class="error-msg"><?php echo $error; ?></div>
+							<?php } ?>
+							<?php if($success){ ?>
+							<div class="success-msg"><?php echo $success; ?></div>
+							<?php } ?>
+							<form action="" method="post">
                             <div class="form-group">
                                 <input type="text" name="email" class="input-text" placeholder="Email Address">
                             </div>
                             <div class="form-group">
-                                <button type="submit" class="button-md button-theme btn-block">Send Me Email</button>
+                                <button type="submit" name="sign_submit" class="button-md button-theme btn-block">Send Me Email</button>
                             </div>
                         </form>
                     </div>
                     <div class="footer">
                         <span>
-                           <a href="login.html">Return to login again</a>
+                           <a href="login.php">Return to login again</a>
                         </span>
                     </div>
                 </div>

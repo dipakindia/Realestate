@@ -1,4 +1,24 @@
-<!DOCTYPE html>
+<?php include('includes/config.php');
+$error = $success = '';
+if(isset($_POST['sign_submit'])){
+	echo '<pre>';
+	print_r($_POST);die;
+	$sql = mysql_query("SELECT * FROM `tbl_user_records` WHERE `email_id` = '".$_POST['email']."'");
+	if(mysql_num_rows($sql) > 0){
+		$row = mysql_fetch_object($sql);
+		$error = "Email id already exists!! Please try another.";
+	}else{
+		
+		extract($_POST);
+		$insertSql = mysql_query("INSERT INTO `tbl_user_records`(`first_name`, `last_name`, `email_id`, `mobile`, `password`, `date`, `is_merchant`) VALUES ('".$first_name."','".$last_name."','".$email."','".$mobile."','".$password."','".date("Y-m-d H:i:s")."','".$user_type."')");
+		if($insertSql){
+			$success = "User successfully registered. please check your mail for verify!.";
+		}else{
+			$error = "Error in registration!!";
+		}
+	}
+}
+?><!DOCTYPE html>
 <html lang="zxx">
 <head>
     <title>Submit Property</title>
@@ -50,20 +70,26 @@
             </div>
             <div class="col-md-12">
                 <div class="submit-address">
-                    <form method="GET">
+            <?php if($error){ ?>
+            	<div class="error-msg"><?php echo $error; ?></div>
+            <?php } ?>
+			<?php if($success){ ?>
+            	<div class="success-msg"><?php echo $success; ?></div>
+            <?php } ?>
+            <form action="" method="post">
                         <div class="main-title-2">
                             <h1><span>Basic</span> Information</h1>
                         </div>
                         <div class="search-contents-sidebar mb-30">
                             <div class="form-group">
                                 <label>Property Title</label>
-                                <input type="text" class="input-text" name="your name" placeholder="Property Title">
+                                <input type="text" class="input-text" name="product_title" placeholder="Property Title">
                             </div>
                             <div class="row">
                                 <div class="col-md-6 col-sm-6">
                                     <div class="form-group">
                                         <label>Status</label>
-                                        <select class="selectpicker search-fields" name="for-sale">
+                                        <select class="selectpicker search-fields" name="property_status">
                                             <option>For Sale</option>
                                             <option>For Rent</option>
                                         </select>
@@ -72,7 +98,7 @@
                                 <div class="col-md-6 col-sm-6">
                                     <div class="form-group">
                                         <label>Type</label>
-                                        <select class="selectpicker search-fields" name="apartment">
+                                        <select class="selectpicker search-fields" name="property_type">
                                             <option>House</option>
                                             <option>Residential</option>
                                             <option>Apartment</option>
@@ -86,19 +112,19 @@
                                 <div class="col-md-3 col-sm-6">
                                     <div class="form-group">
                                         <label>Price</label>
-                                        <input type="text" class="input-text" name="your name" placeholder="USD">
+                                        <input type="text" class="input-text" name="property_price" placeholder="USD">
                                     </div>
                                 </div>
                                 <div class="col-md-3 col-sm-6">
                                     <div class="form-group">
                                         <label>Area/Location</label>
-                                        <input type="text" class="input-text" name="your name" placeholder="SqFt">
+                                        <input type="text" class="input-text" name="property_area" placeholder="SqFt">
                                     </div>
                                 </div>
                                 <div class="col-md-3 col-sm-6">
                                     <div class="form-group">
                                         <label>Rooms</label>
-                                        <select class="selectpicker search-fields" name="1">
+                                        <select class="selectpicker search-fields" name="rooms">
                                             <option>1</option>
                                             <option>2</option>
                                             <option>3</option>
@@ -111,7 +137,7 @@
                                 <div class="col-md-3 col-sm-6">
                                     <div class="form-group">
                                         <label>Bathroom</label>
-                                        <select class="selectpicker search-fields" name="1">
+                                        <select class="selectpicker search-fields" name="bathrooms">
                                             <option>1</option>
                                             <option>2</option>
                                             <option>3</option>
@@ -142,7 +168,7 @@
                             <div class="col-md-6 col-sm-6">
                                 <div class="form-group">
                                     <label>City</label>
-                                    <select class="selectpicker search-fields" name="choose-city" data-live-search="true" data-live-search-placeholder="Search value">
+                                    <select class="selectpicker search-fields" name="city" data-live-search="true" data-live-search-placeholder="Search value">
                                         <option>Choose City</option>
                                         <option>Ontario</option>
                                         <option>Quebec</option>
@@ -153,7 +179,7 @@
                             <div class="col-md-6 col-sm-6">
                                 <div class="form-group">
                                     <label>State</label>
-                                    <select class="selectpicker search-fields" name="choose-state" data-live-search="true" data-live-search-placeholder="Search value">
+                                    <select class="selectpicker search-fields" name="state" data-live-search="true" data-live-search-placeholder="Search value">
                                         <option>Choose State</option>
                                         <option>Canada</option>
                                     </select>
@@ -162,7 +188,7 @@
                             <div class="col-md-6 col-sm-6">
                                 <div class="form-group">
                                     <label>Postal Code</label>
-                                    <input type="text" class="input-text" name="zip"  placeholder="Postal Code">
+                                    <input type="text" class="input-text" name="pincode"  placeholder="Postal Code">
                                 </div>
                             </div>
                         </div>
@@ -174,7 +200,7 @@
                             <div class="col-md-12">
                                 <div class="form-group">
                                     <label>Detailed Information</label>
-                                    <textarea class="input-text" name="message" placeholder="Detailed Information"></textarea>
+                                    <textarea class="input-text" name="property_description" placeholder="Detailed Information"></textarea>
                                 </div>
                             </div>
                         </div>
@@ -182,7 +208,7 @@
                             <div class="col-md-4 col-sm-4">
                                 <div class="form-group">
                                     <label>Building Age <span>(optional)</span></label>
-                                    <select class="selectpicker search-fields" name="years">
+                                    <select class="selectpicker search-fields" name="property_age">
                                         <option>0-1 Years</option>
                                         <option>0-5 Years</option>
                                         <option>0-10 Years</option>
@@ -195,7 +221,7 @@
                             <div class="col-md-4 col-sm-4">
                                 <div class="form-group">
                                     <label>Bedrooms (optional)</label>
-                                    <select class="selectpicker search-fields" name="1">
+                                    <select class="selectpicker search-fields" name="bedroom_optional">
                                         <option>1</option>
                                         <option>2</option>
                                         <option>3</option>
@@ -208,7 +234,7 @@
                             <div class="col-md-4 col-sm-4">
                                 <div class="form-group">
                                     <label>Bathrooms (optional)</label>
-                                    <select class="selectpicker search-fields" name="1">
+                                    <select class="selectpicker search-fields" name="bathroom_optional">
                                         <option>1</option>
                                         <option>2</option>
                                         <option>3</option>
@@ -223,19 +249,19 @@
                                 <div class="row">
                                     <div class="col-lg-4 col-sm-4 col-xs-12">
                                         <div class="checkbox checkbox-theme checkbox-circle">
-                                            <input id="checkbox1" type="checkbox">
+                                            <input id="checkbox1" type="checkbox" name="features[]" value="Free Parking">
                                             <label for="checkbox1">
                                                 Free Parking
                                             </label>
                                         </div>
                                         <div class="checkbox checkbox-theme checkbox-circle">
-                                            <input id="checkbox2" type="checkbox">
+                                            <input id="checkbox2" type="checkbox" name="features[]" value="Air Condition">
                                             <label for="checkbox2">
                                                 Air Condition
                                             </label>
                                         </div>
                                         <div class="checkbox checkbox-theme checkbox-circle">
-                                            <input id="checkbox3" type="checkbox">
+                                            <input id="checkbox3" type="checkbox" name="features[]" value="Places to seat">
                                             <label for="checkbox3">
                                                 Places to seat
                                             </label>
@@ -243,19 +269,19 @@
                                     </div>
                                     <div class="col-lg-4 col-sm-4 col-xs-12">
                                         <div class="checkbox checkbox-theme checkbox-circle">
-                                            <input id="checkbox4" type="checkbox">
+                                            <input id="checkbox4" type="checkbox" name="features[]" value="Swimming Pool">
                                             <label for="checkbox4">
                                                 Swimming Pool
                                             </label>
                                         </div>
                                         <div class="checkbox checkbox-theme checkbox-circle">
-                                            <input id="checkbox5" type="checkbox">
+                                            <input id="checkbox5" type="checkbox" name="features[]" value="Laundry Room">
                                             <label for="checkbox5">
                                                 Laundry Room
                                             </label>
                                         </div>
                                         <div class="checkbox checkbox-theme checkbox-circle">
-                                            <input id="checkbox6" type="checkbox">
+                                            <input id="checkbox6" type="checkbox" name="features[]" value="Window Covering">
                                             <label for="checkbox6">
                                                 Window Covering
                                             </label>
@@ -263,13 +289,13 @@
                                     </div>
                                     <div class="col-lg-4 col-sm-4 col-xs-12">
                                         <div class="checkbox checkbox-theme checkbox-circle">
-                                            <input id="checkbox7" type="checkbox">
+                                            <input id="checkbox7" type="checkbox" name="features[]" value="Central Heating">
                                             <label for="checkbox7">
                                                 Central Heating
                                             </label>
                                         </div>
                                         <div class="checkbox checkbox-theme checkbox-circle">
-                                            <input id="checkbox8" type="checkbox">
+                                            <input id="checkbox8" type="checkbox" name="features[]" value="Alarm">
                                             <label for="checkbox8">
                                                 Alarm
                                             </label>
@@ -285,23 +311,23 @@
                             <div class="col-md-4 col-sm-4">
                                 <div class="form-group">
                                     <label>Name</label>
-                                    <input type="text" class="input-text" name="name" placeholder="Name">
+                                    <input type="text" class="input-text" name="contact_name" placeholder="Name">
                                 </div>
                             </div>
                             <div class="col-md-4 col-sm-4">
                                 <div class="form-group">
                                     <label>Email</label>
-                                    <input type="email" class="input-text" name="email" placeholder="Email">
+                                    <input type="email" class="input-text" name="contact_email" placeholder="Email">
                                 </div>
                             </div>
                             <div class="col-md-4 col-sm-4">
                                 <div class="form-group">
                                     <label>Phone (optional)</label>
-                                    <input type="text" class="input-text" name="phone"  placeholder="Phone">
+                                    <input type="text" class="input-text" name="contact_phone" placeholder="Phone">
                                 </div>
                             </div>
                             <div class="col-md-12">
-                                <a href="#" class="btn button-md button-theme">Submit</a>
+                                <button type="submit" name="sign_submit" class="btn button-md button-theme">Submit</button>
                             </div>
                         </div>
                     </form>
@@ -360,204 +386,7 @@
         </div>
     </div>
 </div>
-<footer class="main-footer clearfix">
-    <div class="container">
-        <div class="footer-info">
-            <div class="row">
-                <div class="col-lg-4 col-md-3 col-sm-6 col-xs-12">
-                    <div class="footer-item">
-                        <div class="main-title-2">
-                            <h1>Contact Us</h1>
-                        </div>
-                        <p>
-                            Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's printing and
-                        </p>
-                        <ul class="personal-info">
-                            <li>
-                                <i class="fa fa-map-marker"></i>
-                                Address: 250 Yonge St, Suite 2201, Toronto, ON M5B 2L7, Canada
-                            </li>
-                            <li>
-                                <i class="fa fa-envelope"></i>
-                                Email:<a href="mailto:sales@canadalettings.com">sales@canadalettings.com</a>
-                            </li>
-                            <li>
-                                <i class="fa fa-phone"></i>
-                                Phone: <a href="tel:+1647 961 8625">+1647 961 8625</a>
-                            </li>
-                            <li>
-                                <i class="fa fa-fax"></i>
-                                Fax: +1647 961 8625
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="col-lg-2 col-md-2 col-sm-6 col-xs-12">
-                    <div class="footer-item">
-                        <div class="main-title-2">
-                            <h1>Links</h1>
-                        </div>
-                        <ul class="links">
-                            <li>
-                                <a href="index.html">Home</a>
-                            </li>
-                            <li>
-                                <a href="#">About Us</a>
-                            </li>
-                            <li>
-                                <a href="#">Contact Us</a>
-                            </li>
-                            <li>
-                                <a href="#">Find Agent</a>
-                            </li>
-                            <li>
-                                <a href="#">properties for sale</a>
-                            </li>
-                            <li>
-                                <a href="#">properties to rent</a>
-                            </li>                            
-                            <li>
-                                <a href="#">properties for student</a>
-                            </li>
-                            <li>
-                                <a href="#">properties Details</a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
-                    <div class="footer-item popular-posts">
-                        <div class="main-title-2">
-                            <h1>Popular Posts</h1>
-                        </div>
-                        <div class="media">
-                            <div class="media-left">
-                                <img class="media-object" src="img/g5.png" alt="small-properties-1">
-                            </div>
-                            <div class="media-body">
-                                <h3 class="media-heading">
-                                    <a href="#">Sweet Family Home</a>
-                                </h3>
-                                <p>April 25, 2018</p>
-                                <div class="price">
-                                    $734,000
-                                </div>
-                            </div>
-                        </div>
-                        <div class="media">
-                            <div class="media-left">
-                                <img class="media-object" src="img/g5.png" alt="small-properties-2">
-                            </div>
-                            <div class="media-body">
-                                <h3 class="media-heading">
-                                    <a href="#">Modern Family Home</a>
-                                </h3>
-                                <p>April 25, 2018</p>
-                                <div class="price">
-                                    $734,000
-                                </div>
-                            </div>
-                        </div>
-                        <div class="media">
-                            <div class="media-left">
-                                <img class="media-object" src="img/g5.png" alt="small-properties-3">
-                            </div>
-                            <div class="media-body">
-                                <h3 class="media-heading">
-                                    <a href="#">Beautiful Single Home</a>
-                                </h3>
-                                <p>April 25, 2018</p>
-                                <div class="price">
-                                    $734,000
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
-                    <div class="footer-item">
-                        <div class="main-title-2">
-                            <h1>Subscribe</h1>
-                        </div>
-                        <div class="newsletter clearfix">
-                            <p>
-                                Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id
-                            </p>
-
-                            <form action="#" method="post">
-                                <div class="form-group">
-                                    <input class="nsu-field btn-block" id="nsu-email-0" type="text" name="email" placeholder="Enter your Email Address" required="">
-                                </div>
-                                <div class="form-group mb-0">
-                                    <button type="submit" class="button-sm button-theme btn-block">
-                                        Subscribe
-                                    </button>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</footer>
-<div class="copy-right">
-    <div class="container">
-        <div class="row clearfix">
-            <div class="col-md-8 col-sm-12">
-                &copy;  2018 Trademarks and brands are the property of their respective owners.
-            </div>
-            <div class="col-md-4 col-sm-12">
-                <ul class="social-list clearfix">
-                    <li>
-                        <a href="#" class="facebook">
-                            <i class="fa fa-facebook"></i>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#" class="twitter">
-                            <i class="fa fa-twitter"></i>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#" class="linkedin">
-                            <i class="fa fa-linkedin"></i>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#" class="google">
-                            <i class="fa fa-google-plus"></i>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#" class="rss">
-                            <i class="fa fa-rss"></i>
-                        </a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </div>
-</div>
-<script src="js/jquery-2.2.0.min.js"></script>
-<script src="js/bootstrap.min.js"></script>
-<script src="js/bootstrap-submenu.js"></script>
-<script src="js/rangeslider.js"></script>
-<script src="js/jquery.mb.YTPlayer.js"></script>
-<script src="js/wow.min.js"></script>
-<script src="js/bootstrap-select.min.js"></script>
-<script src="js/jquery.easing.1.3.js"></script>
-<script src="js/jquery.scrollUp.js"></script>
-<script src="js/jquery.mCustomScrollbar.concat.min.js"></script>
-<script src="js/leaflet.js"></script>
-<script src="js/leaflet-providers.js"></script>
-<script src="js/leaflet.markercluster.js"></script>
-<script src="js/dropzone.js"></script>
-<script src="js/jquery.filterizr.js"></script>
-<script src="js/jquery.magnific-popup.min.js"></script>
-<script src="js/maps.js"></script>
-<script src="js/app.js"></script>
-<script src="js/ie10-viewport-bug-workaround.js"></script>
-<script src="js/ie10-viewport-bug-workaround.js"></script>
+<?php include('includes/footer.php'); ?>
+<?php include('includes/foot.php'); ?>
 </body>
 </html>

@@ -1,66 +1,96 @@
+<?php include('includes/config.php');
+$error = $success = '';
+if(isset($_POST['sign_submit'])){
+	//echo '<pre>';
+	//print_r($_POST);
+	$sql = mysql_query("SELECT * FROM `tbl_user_records` WHERE `email_id` = '".$_POST['email']."'");
+	if(mysql_num_rows($sql) > 0){
+		$row = mysql_fetch_object($sql);
+		$error = "Email id already exists!! Please try another.";
+	}else{
+		
+			extract($_POST);
+			//die;
+			//echo "INSERT INTO `tbl_user_records`(`first_name`, `last_name`, `email_id`, `mobile`, `password`, `date`, `is_merchant`) VALUES ('".$first_name."','".$last_name."','".$email."','".$mobile."','".$password."','".date("Y-m-d H:i:s")."','".$user_type."')";die;
+			$insertSql = mysql_query("INSERT INTO `tbl_user_records`(`first_name`, `last_name`, `email_id`, `mobile`, `password`, `date`, `is_merchant`) VALUES ('".$first_name."','".$last_name."','".$email."','".$mobile."','".$password."','".date("Y-m-d H:i:s")."','".$user_type."')");
+			if($insertSql){
+				$success = "User successfully registered. please check your mail for verify!.";
+			}else{
+				$error = "Error in registration!!";
+			}
+	}
+}
+?>
 <!DOCTYPE html>
 <html lang="zxx">
 <head>
-    <title>Signup</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta charset="utf-8">
-    <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="css/animate.min.css">
-    <link rel="stylesheet" type="text/css" href="css/bootstrap-submenu.css">
-    <link rel="stylesheet" type="text/css" href="css/bootstrap-select.min.css">
-    <link rel="stylesheet" href="css/leaflet.css" type="text/css">
-    <link rel="stylesheet" href="css/map.css" type="text/css">
-    <link rel="stylesheet" type="text/css" href="fonts/font-awesome/css/font-awesome.min.css">
-    <link rel="stylesheet" type="text/css" href="fonts/flaticon/font/flaticon.css">
-    <link rel="stylesheet" type="text/css" href="fonts/linearicons/style.css">
-    <link rel="stylesheet" type="text/css"  href="css/jquery.mCustomScrollbar.css">
-    <link rel="stylesheet" type="text/css"  href="css/dropzone.css">
-    <link rel="stylesheet" type="text/css"  href="css/magnific-popup.css">
-    <link rel="stylesheet" type="text/css" href="css/style.css">
-    <link rel="stylesheet" type="text/css" id="style_sheet" href="css/skins/default.css">
-    <link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon" >
-    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700,800%7CPlayfair+Display:400,700%7CRoboto:100,300,400,400i,500,700">
-    <link rel="stylesheet" type="text/css" href="css/ie10-viewport-bug-workaround.css">
-    <script src="js/ie-emulation-modes-warning.js"></script>
+<title>Signup</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="utf-8">
+<?php include('includes/head.php'); ?>
 </head>
 <body>
 <div class="page_loader"></div>
 <div class="content-area">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-12">
-                <div class="form-content-box">
-                    <div class="details">
-                        <div class="main-title">
-                            <h1><span>Signup</span></h1>
-                        </div>
-                        <form action="index.html" method="GET">
-                            <div class="form-group">
-                                <input type="text" name="fullname" class="input-text" placeholder="Full Name">
-                            </div>
-                            <div class="form-group">
-                                <input type="email" name="email" class="input-text" placeholder="Email Address">
-                            </div>
-                            <div class="form-group">
-                                <input type="password" name="password" class="input-text" placeholder="Password">
-                            </div>
-                            <div class="form-group">
-                                <input type="password" name="confirm_Password" class="input-text" placeholder="Confirm Password">
-                            </div>
-                            <div class="form-group">
-                                <button type="submit" class="button-md button-theme btn-block">Signup</button>
-                            </div>
-                        </form>
-                    </div>
-                    <div class="footer">
-                        <span>
-                            Already Registered? <a href="login.html">Login Here</a>
-                        </span>
-                    </div>
-                </div>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="form-content-box">
+          <div class="details">
+            <div class="main-title">
+              <h1><span>Signup</span></h1>
             </div>
+            <?php if($error){ ?>
+            <div class="error-msg"><?php echo $error; ?></div>
+            <?php } ?>
+			<?php if($success){ ?>
+            <div class="success-msg"><?php echo $success; ?></div>
+            <?php } ?>
+            <form action="" method="post">
+              <div class="row">
+                <div class="col-lg-6" style="text-align:left">
+				<div class="form-group">
+                  <input type="radio" name="user_type" class="input-radio" value="0" checked="checked">
+                  User 
+				  </div>
+				  </div>
+                <div class="col-lg-6" style="text-align:left">
+				<div class="form-group">
+                  <input type="radio" name="user_type" class="input-radio" value="1">
+                  Agent / Owner </div>
+				  </div>
+              </div>
+              <div class="row">
+                <div class="col-lg-6">
+                  <div class="form-group">
+                    <input type="text" name="first_name" class="input-text" placeholder="First Name">
+                  </div>
+                </div>
+                <div class="col-lg-6">
+                  <div class="form-group">
+                    <input type="text" name="last_name" class="input-text" placeholder="Last Name">
+                  </div>
+                </div>
+              </div>
+              <div class="form-group">
+                <input type="email" name="email" class="input-text" placeholder="Email Address">
+              </div>
+              <div class="form-group">
+                <input type="password" name="password" class="input-text" placeholder="Password">
+              </div>
+              <div class="form-group">
+                <input type="password" name="confirm_Password" class="input-text" placeholder="Confirm Password">
+              </div>
+              <div class="form-group">
+                <button type="submit" class="button-md button-theme btn-block" name="sign_submit">Signup</button>
+              </div>
+            </form>
+          </div>
+          <div class="footer"> <span> Already Registered? <a href="login.php">Login Here</a> </span> </div>
         </div>
+      </div>
     </div>
+  </div>
 </div>
 <script src="js/jquery-2.2.0.min.js"></script>
 <script src="js/bootstrap.min.js"></script>
