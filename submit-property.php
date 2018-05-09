@@ -1,22 +1,67 @@
 <?php include('includes/config.php');
 $error = $success = '';
 if(isset($_POST['sign_submit'])){
-	echo '<pre>';
-	print_r($_POST);die;
-	$sql = mysql_query("SELECT * FROM `tbl_user_records` WHERE `email_id` = '".$_POST['email']."'");
-	if(mysql_num_rows($sql) > 0){
-		$row = mysql_fetch_object($sql);
-		$error = "Email id already exists!! Please try another.";
-	}else{
-		
+	//echo '<pre>';
+	//print_r($_POST);die;
 		extract($_POST);
-		$insertSql = mysql_query("INSERT INTO `tbl_user_records`(`first_name`, `last_name`, `email_id`, `mobile`, `password`, `date`, `is_merchant`) VALUES ('".$first_name."','".$last_name."','".$email."','".$mobile."','".$password."','".date("Y-m-d H:i:s")."','".$user_type."')");
+		$userId = $_SESSION['user_id'];
+		
+		$insertSql = mysql_query("INSERT INTO `tbl_product_records`(
+		`user_id`, 
+		`product_title`, 
+		`price`,  
+		`product_description`, 
+		`features_ids`, 
+		`added_date`, 
+		`property_type`, 
+		`property_status`, 
+		`area`, 
+		`area_unit`, 
+		`rooms`, 
+		`bathrooms`, 
+		`parking`, 
+		`balcony`,		
+		`address`, 
+		`city_id`, 
+		`state_id`, 
+		`postal_code`, 
+		`building_age`,
+		`name`,
+		`email`,
+		`phone`,
+		`bathroom_optional`,
+		`room_optional`
+		) VALUES (
+		'".$userId."',
+		'".$product_title."',
+		'".$property_price."',
+		'".$property_description."',
+		'".implode(',',$features)."',
+		'".date("Y-m-d h:i:s")."',
+		'".$property_type."',
+		'".$property_status."',
+		'".$property_area."',
+		'',
+		'".$rooms."',
+		'".$bathrooms."',
+		'".$parking."',	
+		'".$balcony."',	
+		'".$address."',
+		'".$city."',
+		'".$state."',
+		'".$pincode."',
+		'".$property_age."',
+		'".$name."',
+		'".$email."',
+		'".$phone."',
+		'".$bathroom_opt."',
+		'".$room_opt."'
+		)");
 		if($insertSql){
 			$success = "User successfully registered. please check your mail for verify!.";
 		}else{
 			$error = "Error in registration!!";
 		}
-	}
 }
 ?><!DOCTYPE html>
 <html lang="zxx">
@@ -83,13 +128,13 @@ if(isset($_POST['sign_submit'])){
                         <div class="search-contents-sidebar mb-30">
                             <div class="form-group">
                                 <label>Property Title</label>
-                                <input type="text" class="input-text" name="product_title" placeholder="Property Title">
+                                <input type="text" class="input-text" required name="product_title" placeholder="Property Title">
                             </div>
                             <div class="row">
                                 <div class="col-md-6 col-sm-6">
                                     <div class="form-group">
                                         <label>Status</label>
-                                        <select class="selectpicker search-fields" name="property_status">
+                                        <select class="selectpicker search-fields" required name="property_status">
                                             <option>For Sale</option>
                                             <option>For Rent</option>
                                         </select>
@@ -98,12 +143,12 @@ if(isset($_POST['sign_submit'])){
                                 <div class="col-md-6 col-sm-6">
                                     <div class="form-group">
                                         <label>Type</label>
-                                        <select class="selectpicker search-fields" name="property_type">
-                                            <option>House</option>
-                                            <option>Residential</option>
-                                            <option>Apartment</option>
-                                            <option>Co-Space</option>
-                                            <option>Student Space</option>
+                                        <select class="selectpicker search-fields" name="property_type" required>
+										<?php  $property_type_sql = mysql_query("SELECT * FROM `tbl_property_type_records` WHERE `status` = '1'");
+										   if(mysql_num_rows($property_type_sql) > 0){
+										   while($pt_row = mysql_fetch_object($property_type_sql)){
+									 ?><option value="<?php echo $pt_row->property_type_id; ?>"><?php echo $pt_row->property_type_name; ?></option> 
+										<?php }} ?>
                                         </select>
                                     </div>
                                 </div>
@@ -112,38 +157,63 @@ if(isset($_POST['sign_submit'])){
                                 <div class="col-md-3 col-sm-6">
                                     <div class="form-group">
                                         <label>Price</label>
-                                        <input type="text" class="input-text" name="property_price" placeholder="USD">
+                                        <input type="text" required class="input-text" name="property_price" placeholder="USD">
                                     </div>
                                 </div>
                                 <div class="col-md-3 col-sm-6">
                                     <div class="form-group">
                                         <label>Area/Location</label>
-                                        <input type="text" class="input-text" name="property_area" placeholder="SqFt">
+                                        <input type="text" required class="input-text" name="property_area" placeholder="SqFt">
                                     </div>
                                 </div>
                                 <div class="col-md-3 col-sm-6">
                                     <div class="form-group">
                                         <label>Rooms</label>
-                                        <select class="selectpicker search-fields" name="rooms">
-                                            <option>1</option>
-                                            <option>2</option>
-                                            <option>3</option>
-                                            <option>4</option>
-                                            <option>5</option>
-                                            <option>6</option>
+                                        <select class="selectpicker search-fields" name="rooms" required>
+                                            <option value="1">1</option>
+                                            <option value="2">2</option>
+                                            <option value="3">3</option>
+                                            <option value="4">4</option>
+                                            <option value="5">5</option>
+                                            <option value="6">6</option>
                                         </select>
                                     </div>
                                 </div>
                                 <div class="col-md-3 col-sm-6">
                                     <div class="form-group">
                                         <label>Bathroom</label>
-                                        <select class="selectpicker search-fields" name="bathrooms">
-                                            <option>1</option>
-                                            <option>2</option>
-                                            <option>3</option>
-                                            <option>4</option>
-                                            <option>5</option>
-                                            <option>6</option>
+                                        <select class="selectpicker search-fields" name="bathrooms" required>
+                                            <option value="1">1</option>
+                                            <option value="2">2</option>
+                                            <option value="3">3</option>
+                                            <option value="4">4</option>
+                                            <option value="5">5</option>
+                                            <option value="6">6</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+							<div class="row">
+                                <div class="col-md-3 col-sm-6">
+                                    <div class="form-group">
+                                        <label>Parking</label>
+                                        <select class="selectpicker search-fields" name="parking" required>
+                                            <option value="1">1</option>
+                                            <option value="2">2</option>
+                                            <option value="3">3</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-3 col-sm-6">
+                                    <div class="form-group">
+                                        <label>Balcony</label>
+                                        <select class="selectpicker search-fields" name="balcony" required>
+                                            <option value="1">1</option>
+                                            <option value="2">2</option>
+                                            <option value="3">3</option>
+                                            <option value="4">4</option>
+                                            <option value="5">5</option>
+                                            <option value="6">6</option>
                                         </select>
                                     </div>
                                 </div>
@@ -162,13 +232,13 @@ if(isset($_POST['sign_submit'])){
                             <div class="col-md-6 col-sm-6">
                                 <div class="form-group">
                                     <label>Address</label>
-                                    <input type="text" class="input-text" name="address"  placeholder="Address">
+                                    <input type="text" class="input-text" name="address" required placeholder="Address">
                                 </div>
                             </div>
                             <div class="col-md-6 col-sm-6">
                                 <div class="form-group">
                                     <label>City</label>
-                                    <select class="selectpicker search-fields" name="city" data-live-search="true" data-live-search-placeholder="Search value">
+                                    <select class="selectpicker search-fields" name="city" required data-live-search="true" data-live-search-placeholder="Search value">
                                         <option>Choose City</option>
                                         <option>Ontario</option>
                                         <option>Quebec</option>
@@ -179,7 +249,7 @@ if(isset($_POST['sign_submit'])){
                             <div class="col-md-6 col-sm-6">
                                 <div class="form-group">
                                     <label>State</label>
-                                    <select class="selectpicker search-fields" name="state" data-live-search="true" data-live-search-placeholder="Search value">
+                                    <select class="selectpicker search-fields" name="state" required data-live-search="true" data-live-search-placeholder="Search value">
                                         <option>Choose State</option>
                                         <option>Canada</option>
                                     </select>
@@ -188,7 +258,7 @@ if(isset($_POST['sign_submit'])){
                             <div class="col-md-6 col-sm-6">
                                 <div class="form-group">
                                     <label>Postal Code</label>
-                                    <input type="text" class="input-text" name="pincode"  placeholder="Postal Code">
+                                    <input type="text" class="input-text" name="pincode" required placeholder="Postal Code">
                                 </div>
                             </div>
                         </div>
@@ -200,7 +270,7 @@ if(isset($_POST['sign_submit'])){
                             <div class="col-md-12">
                                 <div class="form-group">
                                     <label>Detailed Information</label>
-                                    <textarea class="input-text" name="property_description" placeholder="Detailed Information"></textarea>
+                                    <textarea class="input-text" name="property_description" required placeholder="Detailed Information"></textarea>
                                 </div>
                             </div>
                         </div>
@@ -222,12 +292,12 @@ if(isset($_POST['sign_submit'])){
                                 <div class="form-group">
                                     <label>Bedrooms (optional)</label>
                                     <select class="selectpicker search-fields" name="bedroom_optional">
-                                        <option>1</option>
-                                        <option>2</option>
-                                        <option>3</option>
-                                        <option>4</option>
-                                        <option>5</option>
-                                        <option>6</option>
+                                                        <option value="1">1</option>
+                                            <option value="2">2</option>
+                                            <option value="3">3</option>
+                                            <option value="4">4</option>
+                                            <option value="5">5</option>
+                                            <option value="6">6</option>
                                     </select>
                                 </div>
                             </div>
@@ -235,72 +305,33 @@ if(isset($_POST['sign_submit'])){
                                 <div class="form-group">
                                     <label>Bathrooms (optional)</label>
                                     <select class="selectpicker search-fields" name="bathroom_optional">
-                                        <option>1</option>
-                                        <option>2</option>
-                                        <option>3</option>
-                                        <option>4</option>
-                                        <option>5</option>
-                                        <option>6</option>
+                                                                   <option value="1">1</option>
+                                            <option value="2">2</option>
+                                            <option value="3">3</option>
+                                            <option value="4">4</option>
+                                            <option value="5">5</option>
+                                            <option value="6">6</option>
                                     </select>
                                 </div>
                             </div>
                             <div class="col-lg-12">
                                 <label class="margin-t-10">Features (optional)</label>
                                 <div class="row">
-                                    <div class="col-lg-4 col-sm-4 col-xs-12">
+                                    
+									<?php  $feature_sql = mysql_query("SELECT * FROM `tbl_feature_records` WHERE `status` = '1'");
+										   if(mysql_num_rows($feature_sql) > 0){
+										   while($f_row = mysql_fetch_object($feature_sql)){
+									 ?><div class="col-lg-4 col-sm-4 col-xs-12">
                                         <div class="checkbox checkbox-theme checkbox-circle">
-                                            <input id="checkbox1" type="checkbox" name="features[]" value="Free Parking">
-                                            <label for="checkbox1">
-                                                Free Parking
+                                            <input id="checkbox<?=$f_row->feature_id;?>" type="checkbox" name="features[]" value="<?php echo $f_row->feature_id; ?>">
+                                            <label for="checkbox<?=$f_row->feature_id;?>">
+                                                <?php echo $f_row->feature_name; ?>
                                             </label>
                                         </div>
-                                        <div class="checkbox checkbox-theme checkbox-circle">
-                                            <input id="checkbox2" type="checkbox" name="features[]" value="Air Condition">
-                                            <label for="checkbox2">
-                                                Air Condition
-                                            </label>
-                                        </div>
-                                        <div class="checkbox checkbox-theme checkbox-circle">
-                                            <input id="checkbox3" type="checkbox" name="features[]" value="Places to seat">
-                                            <label for="checkbox3">
-                                                Places to seat
-                                            </label>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-4 col-sm-4 col-xs-12">
-                                        <div class="checkbox checkbox-theme checkbox-circle">
-                                            <input id="checkbox4" type="checkbox" name="features[]" value="Swimming Pool">
-                                            <label for="checkbox4">
-                                                Swimming Pool
-                                            </label>
-                                        </div>
-                                        <div class="checkbox checkbox-theme checkbox-circle">
-                                            <input id="checkbox5" type="checkbox" name="features[]" value="Laundry Room">
-                                            <label for="checkbox5">
-                                                Laundry Room
-                                            </label>
-                                        </div>
-                                        <div class="checkbox checkbox-theme checkbox-circle">
-                                            <input id="checkbox6" type="checkbox" name="features[]" value="Window Covering">
-                                            <label for="checkbox6">
-                                                Window Covering
-                                            </label>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-4 col-sm-4 col-xs-12">
-                                        <div class="checkbox checkbox-theme checkbox-circle">
-                                            <input id="checkbox7" type="checkbox" name="features[]" value="Central Heating">
-                                            <label for="checkbox7">
-                                                Central Heating
-                                            </label>
-                                        </div>
-                                        <div class="checkbox checkbox-theme checkbox-circle">
-                                            <input id="checkbox8" type="checkbox" name="features[]" value="Alarm">
-                                            <label for="checkbox8">
-                                                Alarm
-                                            </label>
-                                        </div>
-                                    </div>
+										</div>
+										<?php }} ?>
+                                     
+                                    
                                 </div>
                             </div>
                         </div>
@@ -311,13 +342,13 @@ if(isset($_POST['sign_submit'])){
                             <div class="col-md-4 col-sm-4">
                                 <div class="form-group">
                                     <label>Name</label>
-                                    <input type="text" class="input-text" name="contact_name" placeholder="Name">
+                                    <input type="text" class="input-text" required name="contact_name" placeholder="Name">
                                 </div>
                             </div>
                             <div class="col-md-4 col-sm-4">
                                 <div class="form-group">
                                     <label>Email</label>
-                                    <input type="email" class="input-text" name="contact_email" placeholder="Email">
+                                    <input type="email" class="input-text" required name="contact_email" placeholder="Email">
                                 </div>
                             </div>
                             <div class="col-md-4 col-sm-4">

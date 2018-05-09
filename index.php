@@ -1,3 +1,4 @@
+<?php include('includes/config.php'); ?>
 <!DOCTYPE html>
 <html lang="zxx">
 <head>
@@ -119,39 +120,50 @@ Search area end -->
     </div>
     <ul class="list-inline-listing filters filters-listing-navigation">
       <li class="active btn filtr-button filtr" data-filter="all">All</li>
+	  <?php  $product_sql = mysql_query("SELECT * FROM `tbl_product_records` WHERE `status` = '1'");
+		   if(mysql_num_rows($product_sql) > 0){
+		   while($product_row = mysql_fetch_object($product_sql)){
+	 ?>
       <li data-filter="1" class="btn btn-inline filtr-button filtr">House</li>
+	  <?php }} ?>
       <li data-filter="2" class="btn btn-inline filtr-button filtr">Residential</li>
       <li data-filter="3" class="btn btn-inline filtr-button filtr">Apartment</li>
       <li data-filter="4" class="btn btn-inline filtr-button filtr">Student</li>
     </ul>
     <div class="row">
       <div class="filtr-container">
+	  <?php  $product_sql = mysql_query("SELECT * FROM `tbl_product_records` WHERE `status` = '1'");
+		   if(mysql_num_rows($product_sql) > 0){
+		   while($product_row = mysql_fetch_object($product_sql)){
+	 ?>
         <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12  filtr-item" data-category="1, 2, 3">
           <div class="property">
             <div class="property-img">
               <div class="property-tag button alt featured">Featured</div>
-              <div class="property-tag button sale">For Sale</div>
-              <div class="property-price">$150,000</div>
+              <div class="property-tag button sale"><?php echo $product_row->property_status; ?></div>
+              <div class="property-price"><?php echo $product_row->property_price; ?></div>
               <img src="img/properties-1.jpg" alt="fp" class="img-responsive">
               <div class="property-overlay"> <a href="#" class="overlay-link"> <i class="fa fa-link"></i> </a>
                 <div class="property-magnify-gallery"> <a href="img/properties-1.jpg" class="overlay-link"> <i class="fa fa-expand"></i> </a> <a href="img/properties-1.jpg" class="hidden"></a> <a href="img/properties-1.jpg" class="hidden"></a> </div>
               </div>
             </div>
             <div class="property-content">
-              <h1 class="title"> <a href="#">Beautiful Single Home</a> </h1>
-              <h3 class="property-address"> <a href="#"> <i class="fa fa-map-marker"></i>123 Kathal St. Tampa City, </a> </h3>
+              <h1 class="title"> <a href="#"><?php echo $product_row->product_price; ?></a> </h1>
+              <h3 class="property-address"> <a href="#"> <i class="fa fa-map-marker"></i><?php echo $product_row->address; ?></a> </h3>
               <ul class="facilities-list clearfix">
-                <li> <i class="flaticon-square-layouting-with-black-square-in-east-area"></i> <span>4800 sq ft</span> </li>
-                <li> <i class="flaticon-bed"></i> <span>3 Beds</span> </li>
+                <li> <i class="flaticon-square-layouting-with-black-square-in-east-area"></i> <span><?php echo $product_row->area; ?> sq ft</span> </li>
+                <li> <i class="flaticon-bed"></i> <span><?php echo $product_row->rooms; ?> Beds</span> </li>
                 <li> <i class="flaticon-monitor"></i> <span>TV </span> </li>
-                <li> <i class="flaticon-holidays"></i> <span> 2 Baths</span> </li>
-                <li> <i class="flaticon-vehicle"></i> <span>1 Garage</span> </li>
-                <li> <i class="flaticon-building"></i> <span> 3 Balcony</span> </li>
+                <li> <i class="flaticon-holidays"></i> <span> <?php echo $product_row->bathrooms; ?> Baths</span> </li>
+                <li> <i class="flaticon-vehicle"></i> <span><?php echo $product_row->parking; ?> Garage</span> </li>
+                <li> <i class="flaticon-building"></i> <span> <?php echo $product_row->balcony; ?> Balcony</span> </li>
               </ul>
               <div class="property-footer"> <span class="left"> <a href="#"><i class="fa fa-user"></i>Jhon Doe</a> </span> <span class="right"> <i class="fa fa-calendar"></i>5 Days ago </span> </div>
             </div>
           </div>
         </div>
+		<?php }} ?>
+		<!--
         <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12  filtr-item" data-category="1">
           <div class="property">
             <div class="property-img">
@@ -282,6 +294,7 @@ Search area end -->
             </div>
           </div>
         </div>
+		-->	
       </div>
     </div>
   </div>
