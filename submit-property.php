@@ -1,4 +1,4 @@
-<?php include('includes/config.php');
+<?php //include('includes/config.php');
 $error = $success = '';
 if(isset($_POST['sign_submit'])){
 	//echo '<pre>';
@@ -149,6 +149,7 @@ if(isset($_POST['sign_submit'])){
 										   while($pt_row = mysql_fetch_object($property_type_sql)){
 									 ?><option value="<?php echo $pt_row->property_type_id; ?>"><?php echo $pt_row->property_type_name; ?></option> 
 										<?php }} ?>
+
                                         </select>
                                     </div>
                                 </div>
@@ -238,6 +239,7 @@ if(isset($_POST['sign_submit'])){
                             <div class="col-md-6 col-sm-6">
                                 <div class="form-group">
                                     <label>City</label>
+
                                     <select class="selectpicker search-fields" name="city" required data-live-search="true" data-live-search-placeholder="Search value">
                                         <option>Choose City</option>
                                         <option>Ontario</option>
@@ -246,7 +248,7 @@ if(isset($_POST['sign_submit'])){
                                     </select>
                                 </div>
                             </div>
-                            <div class="col-md-6 col-sm-6">
+                            <div class="col-md-4 col-sm-4">
                                 <div class="form-group">
                                     <label>State</label>
                                     <select class="selectpicker search-fields" name="state" required data-live-search="true" data-live-search-placeholder="Search value">
@@ -255,7 +257,18 @@ if(isset($_POST['sign_submit'])){
                                     </select>
                                 </div>
                             </div>
-                            <div class="col-md-6 col-sm-6">
+                            <div class="col-md-4 col-sm-4">
+                                <div class="form-group">
+                                    <label>City</label>
+                                    <select class="selectpicker search-fields" name="city" data-live-search="true" data-live-search-placeholder="Search value">
+                                        <option>Choose City</option>
+                                        <option>Ontario</option>
+                                        <option>Quebec</option>
+                                        <option>British Columbia</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-4 col-sm-4">
                                 <div class="form-group">
                                     <label>Postal Code</label>
                                     <input type="text" class="input-text" name="pincode" required placeholder="Postal Code">

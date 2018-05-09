@@ -32,6 +32,7 @@ if(isset($_POST['sign_submit'])){
 <body>
 <div class="page_loader"></div>
 <div class="content-area">
+
   <div class="container">
     <div class="row">
       <div class="col-lg-12">
