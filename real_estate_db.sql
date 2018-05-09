@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: May 07, 2018 at 04:37 AM
+-- Generation Time: May 09, 2018 at 04:09 AM
 -- Server version: 5.5.27
 -- PHP Version: 5.4.7
 
@@ -19,80 +19,6 @@ SET time_zone = "+00:00";
 --
 -- Database: `real_estate_db`
 --
-
--- --------------------------------------------------------
-
---
--- Table structure for table `admin`
---
-
-CREATE TABLE IF NOT EXISTS `admin` (
-  `id` int(115) NOT NULL,
-  `status` int(11) NOT NULL,
-  `added_date` datetime NOT NULL,
-  `updated_date` datetime NOT NULL,
-  `ip_address` varchar(50) NOT NULL,
-  `username` varchar(30) NOT NULL,
-  `password` varchar(35) NOT NULL,
-  `mobile` bigint(20) NOT NULL,
-  `email_id` varchar(50) NOT NULL,
-  `name` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `admin`
---
-
-INSERT INTO `admin` (`id`, `status`, `added_date`, `updated_date`, `ip_address`, `username`, `password`, `mobile`, `email_id`, `name`) VALUES
-(1, 1, '0000-00-00 00:00:00', '0000-00-00 00:00:00', '', 'Anirudh', 'password', 2147483647, 'anirud@gmail.com', 0),
-(2, 1, '0000-00-00 00:00:00', '0000-00-00 00:00:00', '', 'mohit_sikka', 'technical_error', 2147483647, 'mohit@gmail.com', 0),
-(0, 1, '2017-08-28 20:33:02', '0000-00-00 00:00:00', '', 'deepak123', 'Pass!234', 7896541230, 'deepak@gmail.com', 0),
-(0, 1, '2017-08-28 20:37:51', '0000-00-00 00:00:00', '', '789456', '123456', 9874563210, 'deepak@gmail.com', 0);
-
--- --------------------------------------------------------
-
---
--- Table structure for table `category`
---
-
-CREATE TABLE IF NOT EXISTS `category` (
-  `id` int(115) NOT NULL AUTO_INCREMENT,
-  `category_name` varchar(60) NOT NULL,
-  `image` varchar(200) NOT NULL,
-  `description` text NOT NULL,
-  `city_id` varchar(80) NOT NULL,
-  UNIQUE KEY `id` (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
-
---
--- Dumping data for table `category`
---
-
-INSERT INTO `category` (`id`, `category_name`, `image`, `description`, `city_id`) VALUES
-(1, 'food', '', 'some description', '1,2');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `sub_category`
---
-
-CREATE TABLE IF NOT EXISTS `sub_category` (
-  `id` int(115) NOT NULL AUTO_INCREMENT,
-  `name` varchar(100) NOT NULL,
-  `parent_id` varchar(100) NOT NULL,
-  `image` varchar(100) NOT NULL,
-  `description` varchar(100) NOT NULL,
-  UNIQUE KEY `UNIQUE` (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
-
---
--- Dumping data for table `sub_category`
---
-
-INSERT INTO `sub_category` (`id`, `name`, `parent_id`, `image`, `description`) VALUES
-(1, 'restaurent', '1', '', ''),
-(2, 'bar', '1', '', '');
 
 -- --------------------------------------------------------
 
@@ -120,21 +46,6 @@ CREATE TABLE IF NOT EXISTS `tbl_admin_users` (
 
 INSERT INTO `tbl_admin_users` (`id`, `username`, `email`, `password`, `avatar`, `created_at`, `updated_at`, `is_admin`, `is_confirmed`, `is_deleted`) VALUES
 (1, 'admin', 'admin@gmail.com', 'e10adc3949ba59abbe56e057f20f883e', 'default.jpg', '2017-04-04 00:00:00', '2017-04-04 00:00:00', 1, 0, 0);
-
--- --------------------------------------------------------
-
---
--- Table structure for table `tbl_advertise_records`
---
-
-CREATE TABLE IF NOT EXISTS `tbl_advertise_records` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `offer_id` int(11) NOT NULL,
-  `start_at` datetime NOT NULL,
-  `end_at` datetime NOT NULL,
-  `added_date` datetime NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -245,23 +156,31 @@ CREATE TABLE IF NOT EXISTS `tbl_enquiry_records` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tbl_filters`
+-- Table structure for table `tbl_feature_records`
 --
 
-CREATE TABLE IF NOT EXISTS `tbl_filters` (
-  `id` int(11) NOT NULL,
-  `Name` varchar(250) NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+CREATE TABLE IF NOT EXISTS `tbl_feature_records` (
+  `feature_id` int(11) NOT NULL AUTO_INCREMENT,
+  `feature_name` varchar(100) NOT NULL,
+  `status` int(11) NOT NULL DEFAULT '1',
+  `added_date` date NOT NULL,
+  `updated_date` date NOT NULL,
+  PRIMARY KEY (`feature_id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=10 ;
 
 --
--- Dumping data for table `tbl_filters`
+-- Dumping data for table `tbl_feature_records`
 --
 
-INSERT INTO `tbl_filters` (`id`, `Name`) VALUES
-(1, 'WholeSaler'),
-(2, 'Retailer'),
-(3, 'ShopKeeper'),
-(4, 'Service Provider');
+INSERT INTO `tbl_feature_records` (`feature_id`, `feature_name`, `status`, `added_date`, `updated_date`) VALUES
+(1, 'Free Parking', 1, '2017-03-16', '2017-03-16'),
+(2, 'Air Condition', 1, '2017-03-16', '2017-03-16'),
+(4, 'Places to seat', 1, '0000-00-00', '0000-00-00'),
+(5, 'Swimming Pool', 1, '0000-00-00', '0000-00-00'),
+(6, 'Laundry Room', 1, '0000-00-00', '0000-00-00'),
+(7, 'Window Covering', 1, '0000-00-00', '0000-00-00'),
+(3, 'Alarm', 1, '0000-00-00', '0000-00-00'),
+(8, 'Central Heating', 1, '2018-05-08', '2018-05-08');
 
 -- --------------------------------------------------------
 
@@ -293,24 +212,6 @@ INSERT INTO `tbl_locality` (`city_id`, `name`, `latitude`, `longitude`, `postal_
 (1, 'test 1', '', '', '', 1, 6),
 (1, 'test 1', '', '', '', 1, 7),
 (1, 'test 1', '', '', '', 0, 8);
-
--- --------------------------------------------------------
-
---
--- Table structure for table `tbl_notification_records`
---
-
-CREATE TABLE IF NOT EXISTS `tbl_notification_records` (
-  `notification_id` int(11) NOT NULL AUTO_INCREMENT,
-  `type` int(11) NOT NULL,
-  `notification_title` varchar(100) NOT NULL,
-  `notifiaction_desc` text NOT NULL,
-  `notification_image` varchar(250) NOT NULL,
-  `status` int(11) NOT NULL,
-  `added_date` datetime NOT NULL,
-  `user_ids` text NOT NULL,
-  PRIMARY KEY (`notification_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -396,95 +297,6 @@ INSERT INTO `tbl_offer_comments` (`comment_id`, `offer_id`, `user_id`, `comment_
 (1, 1, 25, 'Nice Offer', '2017-04-02 08:00:00'),
 (2, 1, 35, 'Lovely Product..', '0000-00-00 00:00:00'),
 (3, 2, 1, 'dfgdfgfghfhfg', '2017-04-02 16:13:30');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `tbl_offer_images`
---
-
-CREATE TABLE IF NOT EXISTS `tbl_offer_images` (
-  `offer_image_id` int(11) NOT NULL AUTO_INCREMENT,
-  `offer_id` int(11) NOT NULL,
-  `image_url` varchar(225) NOT NULL,
-  `status` int(11) NOT NULL,
-  `added_date` datetime NOT NULL,
-  PRIMARY KEY (`offer_image_id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=17 ;
-
---
--- Dumping data for table `tbl_offer_images`
---
-
-INSERT INTO `tbl_offer_images` (`offer_image_id`, `offer_id`, `image_url`, `status`, `added_date`) VALUES
-(1, 253, 'indie_and_love_1490659155.png', 1, '2017-03-28 17:29:15'),
-(2, 25, 'Untitled_1490821574.png', 1, '2017-03-30 14:36:14'),
-(3, 25, 'Untitled_1490821619.png', 1, '2017-03-30 14:36:59'),
-(4, 25, 'Untitled_1490821627.png', 1, '2017-03-30 14:37:07'),
-(5, 25, 'Untitled_1490822319.png', 1, '2017-03-30 14:48:39'),
-(6, 26, 'Untitled_1490822341.png', 1, '2017-03-30 14:49:01'),
-(7, 26, 'Untitled_1490823221.png', 1, '2017-03-30 15:03:41'),
-(8, 28, 'property_1490824043.png', 1, '2017-03-30 15:17:23'),
-(9, 29, 'property_1490824354.png', 1, '2017-03-30 15:22:34'),
-(10, 29, 'property_1490824395.png', 1, '2017-03-30 15:23:15'),
-(11, 29, 'property_1490824400.png', 1, '2017-03-30 15:23:20'),
-(12, 29, 'property_1490824406.png', 1, '2017-03-30 15:23:26'),
-(13, 30, 'property_1490824868.png', 1, '2017-03-30 15:31:08'),
-(14, 30, 'property_1490824872.png', 1, '2017-03-30 15:31:12'),
-(15, 30, 'property_1490824875.png', 1, '2017-03-30 15:31:15'),
-(16, 37, 'right_logo_1500367228.jpg', 1, '2017-07-18 22:40:28');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `tbl_offer_likes`
---
-
-CREATE TABLE IF NOT EXISTS `tbl_offer_likes` (
-  `like_id` int(11) NOT NULL AUTO_INCREMENT,
-  `offer_id` int(11) NOT NULL,
-  `user_id` int(11) NOT NULL,
-  `added_date` datetime NOT NULL,
-  PRIMARY KEY (`like_id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
-
---
--- Dumping data for table `tbl_offer_likes`
---
-
-INSERT INTO `tbl_offer_likes` (`like_id`, `offer_id`, `user_id`, `added_date`) VALUES
-(1, 1, 5, '2017-04-12 00:00:00'),
-(2, 1, 35, '2017-04-25 00:25:26'),
-(3, 1, 8, '2017-04-25 00:25:26'),
-(4, 2, 1, '2017-04-02 16:22:21');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `tbl_offer_sponsered_records`
---
-
-CREATE TABLE IF NOT EXISTS `tbl_offer_sponsered_records` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `offer_id` int(11) NOT NULL,
-  `start_date` date NOT NULL,
-  `end_date` date NOT NULL,
-  `status` int(11) NOT NULL,
-  `added_date` datetime NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=7 ;
-
---
--- Dumping data for table `tbl_offer_sponsered_records`
---
-
-INSERT INTO `tbl_offer_sponsered_records` (`id`, `offer_id`, `start_date`, `end_date`, `status`, `added_date`) VALUES
-(1, 0, '0000-00-00', '0000-00-00', 1, '2017-06-14 23:05:36'),
-(2, 5, '1970-01-01', '1970-01-01', 1, '2017-06-14 23:07:44'),
-(3, 1, '2017-03-21', '2017-03-28', 1, '2017-06-14 23:09:52'),
-(4, 0, '2017-03-20', '2017-03-25', 1, '2017-06-14 23:15:40'),
-(5, 35, '2017-03-13', '2017-03-15', 1, '2017-06-14 23:42:07'),
-(6, 36, '2017-06-23', '2017-06-21', 1, '2017-06-21 21:30:43');
 
 -- --------------------------------------------------------
 
@@ -576,7 +388,6 @@ CREATE TABLE IF NOT EXISTS `tbl_product_records` (
   `user_id` varchar(225) NOT NULL,
   `product_title` varchar(255) NOT NULL,
   `price` varchar(20) NOT NULL,
-  `discount_price` varchar(20) NOT NULL,
   `location` varchar(255) NOT NULL,
   `latitude` varchar(80) NOT NULL,
   `longitude` varchar(80) NOT NULL,
@@ -590,95 +401,53 @@ CREATE TABLE IF NOT EXISTS `tbl_product_records` (
   `area_unit` varchar(225) NOT NULL,
   `rooms` int(11) NOT NULL,
   `bathrooms` int(11) NOT NULL,
+  `parking` int(11) NOT NULL,
+  `balcony` int(11) NOT NULL,
   `address` varchar(200) NOT NULL,
   `city_id` int(11) NOT NULL,
   `state_id` int(11) NOT NULL,
   `postal_code` varchar(200) NOT NULL,
   `building_age` varchar(200) NOT NULL,
+  `name` varchar(200) NOT NULL,
+  `email` varchar(200) NOT NULL,
+  `phone` bigint(25) NOT NULL,
+  `room_optional` int(11) NOT NULL,
+  `bathroom_optional` int(11) NOT NULL,
   UNIQUE KEY `unique` (`product_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=35 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
 
 --
 -- Dumping data for table `tbl_product_records`
 --
 
-INSERT INTO `tbl_product_records` (`product_id`, `user_id`, `product_title`, `price`, `discount_price`, `location`, `latitude`, `longitude`, `product_description`, `features_ids`, `status`, `added_date`, `property_type`, `property_status`, `area`, `area_unit`, `rooms`, `bathrooms`, `address`, `city_id`, `state_id`, `postal_code`, `building_age`) VALUES
-(1, '1', 'abc', '', '', 'Laxmi Nagar, New Delhi', '24.3454', '35.5787', 'gjk', '33,4,5', 1, '0000-00-00 00:00:00', 0, '', '', '', 0, 0, '', 0, 0, '', ''),
-(2, '1', 'xyz', '', '', 'Laxmi Nagar, New Delhi', '24.3454', '35.5787', 'sadsvnf kjml ', '33,4,5', 1, '0000-00-00 00:00:00', 0, '', '', '', 0, 0, '', 0, 0, '', ''),
-(3, '1', 'hjk', '', '', 'Laxmi Nagar, New Delhi', '24.3454', '35.5787', 'sadsvnf kjml ', '33,4,5', 1, '0000-00-00 00:00:00', 0, '', '', '', 0, 0, '', 0, 0, '', ''),
-(4, '1', 'First Product', '', '', 'Laxmi Nagar, New Delhi', '63.1545', '18.45', 'qwerty hf hfghf', '2,5,8,4', 1, '0000-00-00 00:00:00', 0, '', '', '', 0, 0, '', 0, 0, '', ''),
-(5, '1', 'dszfbgdfbghdf', '', '', 'Laxmi Nagar, New Delhi', '3546546', '3626311', '3g/4g enable', '1,2', 1, '0000-00-00 00:00:00', 0, '', '', '', 0, 0, '', 0, 0, '', ''),
-(6, '1', 'dszfbgdfbghdf', '', '', 'Laxmi Nagar, New Delhi', '3546546', '3626311', '3g/4g enable', '1,2', 1, '0000-00-00 00:00:00', 0, '', '', '', 0, 0, '', 0, 0, '', ''),
-(7, '1', 'dszfbgdfbghdf', '', '', 'Laxmi Nagar, New Delhi', '3546546', '3626311', '3g/4g enable', '1,2', 1, '0000-00-00 00:00:00', 0, '', '', '', 0, 0, '', 0, 0, '', ''),
-(8, '1', 'dszfbgdfbghdf', '', '', 'Laxmi Nagar, New Delhi', '354654612', '362631121', '3g/4g enable', '1,2', 1, '0000-00-00 00:00:00', 0, '', '', '', 0, 0, '', 0, 0, '', ''),
-(9, '1', 'dszfbgdfbghdf', '', '', 'Laxmi Nagar, New Delhi', '354654612', '362631121', '3g/4g enable', '1,2', 1, '0000-00-00 00:00:00', 0, '', '', '', 0, 0, '', 0, 0, '', ''),
-(10, '1', 'dszfbgdfbghdf', '', '', 'Laxmi Nagar, New Delhi', '3546546', '3626311', '3g/4g enable', '1,2', 1, '0000-00-00 00:00:00', 0, '', '', '', 0, 0, '', 0, 0, '', ''),
-(11, '1', '123456', '', '', 'Laxmi Nagar, New Delhi', '', '', '12345678', '', 1, '0000-00-00 00:00:00', 0, '', '', '', 0, 0, '', 0, 0, '', ''),
-(12, '1', 'fan', '', '', 'Laxmi Nagar, New Delhi', '3546546', '3626311', 'cool', '1,2', 1, '0000-00-00 00:00:00', 0, '', '', '', 0, 0, '', 0, 0, '', ''),
-(13, '1', 'abc', '', '', 'Laxmi Nagar, New Delhi', '28.4469765', '77.3092431', 'hdbdb', '2', 1, '0000-00-00 00:00:00', 0, '', '', '', 0, 0, '', 0, 0, '', ''),
-(14, '1', 'abc', '', '', 'Laxmi Nagar, New Delhi', '28.4469765', '77.3092431', 'hdbdb', '2', 1, '0000-00-00 00:00:00', 0, '', '', '', 0, 0, '', 0, 0, '', ''),
-(15, '1', 'abc', '', '', 'Laxmi Nagar, New Delhi', '28.4469765', '77.3092431', 'abc des', '2', 1, '0000-00-00 00:00:00', 0, '', '', '', 0, 0, '', 0, 0, '', ''),
-(16, '1', 'Task', '', '', 'Laxmi Nagar, New Delhi', '28.4469765', '77.3092431', 'task des', '1', 1, '0000-00-00 00:00:00', 0, '', '', '', 0, 0, '', 0, 0, '', ''),
-(17, '1', 'abcd', '', '', 'Laxmi Nagar, New Delhi', '28.4469765', '77.3092431', 'abd des', '1', 1, '0000-00-00 00:00:00', 0, '', '', '', 0, 0, '', 0, 0, '', ''),
-(18, '1', 'avsh', '', '', 'Laxmi Nagar, New Delhi', '28.4469765', '77.3092431', 'jxndn', '1', 1, '0000-00-00 00:00:00', 0, '', '', '', 0, 0, '', 0, 0, '', ''),
-(19, '1', 'hsb', '', '', 'Laxmi Nagar, New Delhi', '28.4469765', '77.3092431', 'bsbb', '1', 1, '0000-00-00 00:00:00', 0, '', '', '', 0, 0, '', 0, 0, '', ''),
-(20, '1', 'gdb', '', '', 'Laxmi Nagar, New Delhi', '28.4469274', '77.3091982', 'bsbbz', '1', 1, '0000-00-00 00:00:00', 0, '', '', '', 0, 0, '', 0, 0, '', ''),
-(21, '1', 'hdbdb', '', '', 'Laxmi Nagar, New Delhi', '28.4469765', '77.3092431', 'nzbsn', '1', 1, '0000-00-00 00:00:00', 0, '', '', '', 0, 0, '', 0, 0, '', ''),
-(22, '1', 'hshs', '', '', 'Laxmi Nagar, New Delhi', '28.4469765', '77.3092431', 'vsbz', '1', 1, '0000-00-00 00:00:00', 0, '', '', '', 0, 0, '', 0, 0, '', ''),
-(23, '1', 'hshs', '', '', 'Laxmi Nagar, New Delhi', '28.4469765', '77.3092431', 'vsbz', '1', 1, '0000-00-00 00:00:00', 0, '', '', '', 0, 0, '', 0, 0, '', ''),
-(24, '1', 'hshs', '', '', 'Laxmi Nagar, New Delhi', '28.4469765', '77.3092431', 'vsbz', '1', 1, '0000-00-00 00:00:00', 0, '', '', '', 0, 0, '', 0, 0, '', ''),
-(25, '1', 'hsb', '', '', 'Laxmi Nagar, New Delhi', '28.4469274', '77.3091982', 'bsbsn', '1', 1, '0000-00-00 00:00:00', 0, '', '', '', 0, 0, '', 0, 0, '', ''),
-(26, '1', 'hxjd', '', '', 'Laxmi Nagar, New Delhi', '28.4469765', '77.3092431', 'gxhd', '1', 1, '0000-00-00 00:00:00', 0, '', '', '', 0, 0, '', 0, 0, '', ''),
-(27, '1', 'hsh', '', '', 'Laxmi Nagar, New Delhi', '28.4469765', '77.3092431', 'nsnsn', '1', 1, '0000-00-00 00:00:00', 0, '', '', '', 0, 0, '', 0, 0, '', ''),
-(28, '1', 'bdbdb', '', '', 'Laxmi Nagar, New Delhi', '28.4469765', '77.3092431', 'hshd', '1', 1, '0000-00-00 00:00:00', 0, '', '', '', 0, 0, '', 0, 0, '', ''),
-(29, '1', 'hdhd', '', '', 'Laxmi Nagar, New Delhi', '28.4469765', '77.3092431', 'gdhdb', '1', 1, '0000-00-00 00:00:00', 0, '', '', '', 0, 0, '', 0, 0, '', ''),
-(30, '1', 'hdbdb', '', '', 'Laxmi Nagar, New Delhi', '28.4469765', '77.3092431', 'bzbdbb', '1', 1, '0000-00-00 00:00:00', 0, '', '', '', 0, 0, '', 0, 0, '', ''),
-(31, '', 'SADDFHGJHJ', '10', '200', '', '846532851', '8645321', '', '', 1, '0000-00-00 00:00:00', 0, '', '', '', 0, 0, '', 0, 0, '', ''),
-(32, '', 'SADDFHGJHJ', '10', '200', '', '846532851', '8645321', '', '', 1, '0000-00-00 00:00:00', 0, '', '', '', 0, 0, '', 0, 0, '', ''),
-(33, '5', 'SADDFHGJHJ', '10', '200', '', '846532851', '8645321', '', '', 1, '0000-00-00 00:00:00', 0, '', '', '', 0, 0, '', 0, 0, '', ''),
-(34, '5', 'SADDFHGJHJ0', '100', '2000', '', '846532851', '8645321', '', '', 0, '0000-00-00 00:00:00', 0, '', '', '', 0, 0, '', 0, 0, '', '');
+INSERT INTO `tbl_product_records` (`product_id`, `user_id`, `product_title`, `price`, `location`, `latitude`, `longitude`, `product_description`, `features_ids`, `status`, `added_date`, `property_type`, `property_status`, `area`, `area_unit`, `rooms`, `bathrooms`, `parking`, `balcony`, `address`, `city_id`, `state_id`, `postal_code`, `building_age`, `name`, `email`, `phone`, `room_optional`, `bathroom_optional`) VALUES
+(1, '5', 'Integrated Gateway NC-MG930-X', '123', '', '', '', 'aefgrhttjyuk uyiuy', 'Free Parking,Air Condition,Swimming Pool,Laundry Room,Alarm', 1, '2018-05-08 09:14:34', 2, 'For Sale', '50000', '', 4, 5, 1, 2, '550 DDa Flats Badarpur', 0, 0, '110044', '0-5 Years', '', '', 0, 0, 0);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tbl_recommeded_merchant`
+-- Table structure for table `tbl_property_type_records`
 --
 
-CREATE TABLE IF NOT EXISTS `tbl_recommeded_merchant` (
-  `merchant_id` int(11) NOT NULL,
-  `added_date` datetime NOT NULL,
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
-
---
--- Dumping data for table `tbl_recommeded_merchant`
---
-
-INSERT INTO `tbl_recommeded_merchant` (`merchant_id`, `added_date`, `id`) VALUES
-(17, '2017-04-12 23:50:32', 1);
-
--- --------------------------------------------------------
-
---
--- Table structure for table `tbl_sponser_plans_records`
---
-
-CREATE TABLE IF NOT EXISTS `tbl_sponser_plans_records` (
-  `id` int(11) NOT NULL,
-  `plan_name` varchar(225) NOT NULL,
-  `price` int(11) NOT NULL,
-  `no_offer_per_month` bigint(20) NOT NULL,
+CREATE TABLE IF NOT EXISTS `tbl_property_type_records` (
+  `property_type_id` int(11) NOT NULL AUTO_INCREMENT,
+  `property_type_name` varchar(100) NOT NULL,
   `status` int(11) NOT NULL DEFAULT '1',
-  `added_date` datetime NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+  `added_date` date NOT NULL,
+  `updated_date` date NOT NULL,
+  PRIMARY KEY (`property_type_id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=9 ;
 
 --
--- Dumping data for table `tbl_sponser_plans_records`
+-- Dumping data for table `tbl_property_type_records`
 --
 
-INSERT INTO `tbl_sponser_plans_records` (`id`, `plan_name`, `price`, `no_offer_per_month`, `status`, `added_date`) VALUES
-(1, 'Silver Plan', 2000, 150, 0, '2017-06-23 15:59:10');
+INSERT INTO `tbl_property_type_records` (`property_type_id`, `property_type_name`, `status`, `added_date`, `updated_date`) VALUES
+(1, 'House', 1, '2017-03-16', '2017-03-16'),
+(2, 'Residential', 1, '2017-03-16', '2017-03-16'),
+(4, 'Apartment', 1, '0000-00-00', '0000-00-00'),
+(5, 'Co-Space', 1, '0000-00-00', '0000-00-00'),
+(6, 'Student Space', 1, '0000-00-00', '0000-00-00');
 
 -- --------------------------------------------------------
 
@@ -702,28 +471,6 @@ CREATE TABLE IF NOT EXISTS `tbl_state_records` (
 INSERT INTO `tbl_state_records` (`state_id`, `state_name`, `country`, `status`, `added_date`) VALUES
 (1, 'New Delhi', 1, 1, '2017-04-11'),
 (2, 'Haryana', 1, 1, '2017-04-11');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `tbl_subscribe_list`
---
-
-CREATE TABLE IF NOT EXISTS `tbl_subscribe_list` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `user_id` int(11) NOT NULL,
-  `merchant_id` int(11) NOT NULL,
-  `status` int(11) NOT NULL,
-  `added_date` date NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
-
---
--- Dumping data for table `tbl_subscribe_list`
---
-
-INSERT INTO `tbl_subscribe_list` (`id`, `user_id`, `merchant_id`, `status`, `added_date`) VALUES
-(2, 1, 5, 1, '2017-03-31');
 
 -- --------------------------------------------------------
 
@@ -890,83 +637,6 @@ INSERT INTO `tbl_user_records` (`id`, `first_name`, `last_name`, `about`, `latit
 (92, 'Panshul', '', NULL, NULL, NULL, 0, 'bestoffersstop@gmail', '99999999901', 'zxcvbnm', 0, 0, '2017-06-02 20:51:47', '14 May 1999', '0000-00-00 00:00:00', '1', 'bt_1495606356.jpg', 'property_1495865692.png', 1, 0, '', NULL, NULL, NULL, NULL, '', '', '', 0, '', '', 'd41d8cd98f00b204e9800998ecf8427e', '5,7,9', '3,2,7', '', '', 0),
 (121, 'ABC', '', NULL, NULL, NULL, 0, 'abc123@gmail.com', '9999999991', 'zxcvbnm', 0, 0, '2017-05-31 22:55:23', '08 Jun, 2000', '0000-00-00 00:00:00', '1', '', 'property_1496890980.png', 1, 1, '', 'address', 'sales', 'email', 0, '', '', '', 0, '', '', '', '', '', '', '', 0),
 (81, 'abcdefghi', 'asgjkj', NULL, NULL, NULL, 0, 'abcdefghi@gmail.com', '9999999999', 'zxcvbnm', 0, 0, '2017-06-08 11:39:07', '18 Apr 1994', '0000-00-00 00:00:00', '1', 'bt_1495606356.jpg', 'property_1495865692.png', 1, 1, '', 'address', 'sales', 'email', 0, '', '', '', 0, '', '', '43ec517d68b6edd3015b3edc9a11367b', '5,7,9', '3,2,7', '', '', 0);
-
--- --------------------------------------------------------
-
---
--- Table structure for table `user_master`
---
-
-CREATE TABLE IF NOT EXISTS `user_master` (
-  `id` int(115) NOT NULL AUTO_INCREMENT,
-  `user_id` varchar(255) NOT NULL,
-  `first_name` varchar(15) NOT NULL,
-  `last_name` varchar(15) DEFAULT NULL,
-  `address` varchar(80) DEFAULT NULL,
-  `latitude` varchar(10) DEFAULT NULL,
-  `longitude` varchar(10) DEFAULT NULL,
-  `country_code` int(20) NOT NULL,
-  `email_id` varchar(20) DEFAULT NULL,
-  `mobile` varchar(16) NOT NULL,
-  `password` varchar(255) NOT NULL,
-  `phone_verified` tinyint(1) DEFAULT '0',
-  `email_verified` tinyint(1) DEFAULT '0',
-  `date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  `date_of_birth` varchar(255) NOT NULL,
-  `updated_on` datetime NOT NULL,
-  `status` varchar(180) DEFAULT NULL,
-  `pic` varchar(255) DEFAULT NULL,
-  `cover_pic` varchar(255) DEFAULT NULL,
-  `is_customer` tinyint(1) DEFAULT '1',
-  `is_merchant` tinyint(1) DEFAULT '0',
-  `office_address` varchar(180) DEFAULT NULL,
-  `peryear_sale` varchar(120) DEFAULT NULL,
-  `office_email` varchar(100) DEFAULT NULL,
-  `office_phone` int(15) DEFAULT NULL,
-  `device_type` varchar(50) NOT NULL,
-  `device_token` varchar(80) NOT NULL,
-  `registered_via` varchar(25) NOT NULL,
-  `verify_merchant` int(11) NOT NULL,
-  `fb_id` varchar(50) NOT NULL,
-  `gplus_id` varchar(50) NOT NULL,
-  PRIMARY KEY (`mobile`),
-  UNIQUE KEY `id` (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=31 ;
-
---
--- Dumping data for table `user_master`
---
-
-INSERT INTO `user_master` (`id`, `user_id`, `first_name`, `last_name`, `address`, `latitude`, `longitude`, `country_code`, `email_id`, `mobile`, `password`, `phone_verified`, `email_verified`, `date`, `date_of_birth`, `updated_on`, `status`, `pic`, `cover_pic`, `is_customer`, `is_merchant`, `office_address`, `peryear_sale`, `office_email`, `office_phone`, `device_type`, `device_token`, `registered_via`, `verify_merchant`, `fb_id`, `gplus_id`) VALUES
-(20, '3918', 'jiten', NULL, NULL, NULL, NULL, 0, 'jkg@jk.com', '1223545655', '12345678', 0, 0, '2017-03-17 06:16:22', '02 Jan 2010', '0000-00-00 00:00:00', NULL, NULL, NULL, 1, 0, NULL, NULL, NULL, NULL, '', '', '', 0, '', ''),
-(8, 'ani_472', 'ani', NULL, NULL, NULL, NULL, 0, 'ani@gm.com', '123456', '1234567', 0, 0, '2017-03-11 10:39:30', '01-02-1992', '0000-00-00 00:00:00', NULL, NULL, NULL, 1, 0, NULL, NULL, NULL, NULL, 'ios', 'haskfgj3r43', '', 0, '', ''),
-(9, '1520', 'ani', NULL, NULL, NULL, NULL, 0, 'ani@gmail.com', '12345678', '123456', 0, 0, '2017-03-11 10:39:30', '01-02-1992', '0000-00-00 00:00:00', NULL, NULL, NULL, 1, 0, NULL, NULL, NULL, NULL, '', '', '', 0, '', ''),
-(2, 'mohit_371', 'mohit', NULL, NULL, NULL, NULL, 0, 'mohit@pp.com', '1234567890', '123456', 0, 0, '2017-03-11 10:39:30', '15-3-2017', '0000-00-00 00:00:00', NULL, NULL, NULL, 1, 0, NULL, NULL, NULL, NULL, '', '', '', 0, '', ''),
-(16, '3462', 'jio', NULL, NULL, NULL, NULL, 0, 'jio@jio.com', '12345678902', '12345678', 0, 0, '2017-03-16 07:35:11', '15 08 2017', '0000-00-00 00:00:00', NULL, NULL, NULL, 1, 0, NULL, NULL, NULL, NULL, '', '', '', 0, '', ''),
-(3, '234232_1226', '234232', NULL, NULL, NULL, NULL, 0, '232323232@ergerg.rt', '2323232232', 'ererer', 0, 0, '2017-03-11 10:39:30', '23-3-2017', '0000-00-00 00:00:00', NULL, NULL, NULL, 1, 0, NULL, NULL, NULL, NULL, '', '', '', 0, '', ''),
-(22, '2527', 'jitu', NULL, NULL, NULL, NULL, 0, 'gauk@gmail.com', '3546876954654', '12345678', 0, 0, '2017-03-18 05:30:13', '18 Mar 2017', '0000-00-00 00:00:00', NULL, NULL, NULL, 1, 0, NULL, NULL, NULL, NULL, '', '', '', 0, '', ''),
-(7, 'jitu_391', 'jitu', NULL, NULL, NULL, NULL, 0, 'jk@gm.com', '4545464215', '123456', 0, 0, '2017-03-11 10:39:30', '7-3-2017', '0000-00-00 00:00:00', NULL, NULL, NULL, 1, 0, NULL, NULL, NULL, NULL, '', '', '', 0, '', ''),
-(17, '1960', 'jjkkjkjk', NULL, NULL, NULL, NULL, 0, 'jkjkjkj@gvhf.vgh', '456846656666', '44454545', 0, 0, '2017-03-16 07:43:50', '04 Jan 2017', '0000-00-00 00:00:00', NULL, NULL, NULL, 1, 0, NULL, NULL, NULL, NULL, '', '', '', 0, '', ''),
-(6, 'panshulv_1562', 'panshulv', NULL, NULL, NULL, NULL, 0, 'vxhvsbx@gmail.com', '4994877654', 'zvgsjsbx', 0, 0, '2017-03-11 10:39:30', '6-3-1979', '0000-00-00 00:00:00', NULL, NULL, NULL, 1, 0, NULL, NULL, NULL, NULL, '', '', '', 0, '', ''),
-(27, '2173', 'jitender', NULL, NULL, NULL, NULL, 0, 'jkg@gm.com', '53752785895', '123456', 0, 0, '2017-03-20 08:03:17', '01-02-1990', '0000-00-00 00:00:00', NULL, NULL, NULL, 1, 0, NULL, NULL, NULL, NULL, '', '', '', 0, '', ''),
-(24, '3208', 'hsjs', NULL, NULL, NULL, NULL, 0, 'dhdj@hdjd.dkdk', '5454845466', 'ghshshsj', 0, 0, '2017-03-18 06:33:28', '31 Mar 2017', '0000-00-00 00:00:00', NULL, NULL, NULL, 1, 0, NULL, NULL, NULL, NULL, '', '', '', 0, '', ''),
-(29, '2427', 'hhshd', NULL, NULL, NULL, NULL, 0, 'hsbsjsh@gmail.com', '5659565945', 'qwerty', 0, 0, '2017-03-21 05:27:48', '21 Mar 1994', '0000-00-00 00:00:00', NULL, NULL, NULL, 1, 0, NULL, NULL, NULL, NULL, '', '', '', 0, '', ''),
-(30, '3257', 'hhshd', NULL, NULL, NULL, NULL, 0, 'hsbsjshi@gmail.com', '5659565949', 'qwerty', 0, 0, '2017-03-21 05:28:57', '21 Mar 1994', '0000-00-00 00:00:00', NULL, NULL, NULL, 1, 0, NULL, NULL, NULL, NULL, '', '', '', 0, '', ''),
-(13, '1604', 'jkituy', NULL, NULL, NULL, NULL, 0, 'jkji@hguj.cvhvh', '56635465555', '45454544555', 0, 0, '2017-03-16 07:16:17', '03 02 2017', '0000-00-00 00:00:00', NULL, NULL, NULL, 1, 0, NULL, NULL, NULL, NULL, '', '', '', 0, '', ''),
-(10, '3382', 'abc', NULL, NULL, NULL, NULL, 0, 'canavb@gmail.com', '7897897897', 'qwerty', 0, 0, '2017-03-15 17:11:11', '15-3-1991', '0000-00-00 00:00:00', NULL, NULL, NULL, 1, 0, NULL, NULL, NULL, NULL, '', '', '', 0, '', ''),
-(19, '1172', 'jiten', NULL, NULL, NULL, NULL, 0, 'jk@gmail.com', '789894565414', '123456mm', 0, 0, '2017-03-16 13:01:00', '08 Jan 2017', '0000-00-00 00:00:00', NULL, NULL, NULL, 1, 0, NULL, NULL, NULL, NULL, '', '', '', 0, '', ''),
-(18, '1701', 'jiten', NULL, NULL, NULL, NULL, 0, 'jiten@gmail.com', '78989456546', '123456', 0, 0, '2017-03-16 12:51:28', '16 Jan 2017', '0000-00-00 00:00:00', NULL, NULL, NULL, 1, 0, NULL, NULL, NULL, NULL, '', '', '', 0, '', ''),
-(12, '2790', 'kiran sikka', NULL, NULL, NULL, NULL, 0, 'kiransikka30@gmail.c', '9717455155', 'qwerty', 0, 0, '2017-03-16 06:09:14', '16-3-1984', '0000-00-00 00:00:00', NULL, NULL, NULL, 1, 0, NULL, NULL, NULL, NULL, '', '', '', 0, '', ''),
-(5, 'abc_211', 'abc', NULL, NULL, NULL, NULL, 0, 'bricktohome27@gmail.', '9718775555', 'qwerty', 0, 0, '2017-03-11 10:39:30', '27-12-2017', '0000-00-00 00:00:00', NULL, NULL, NULL, 1, 0, NULL, NULL, NULL, NULL, '', '', '', 0, '', ''),
-(14, '1242', 'abc', NULL, NULL, NULL, NULL, 0, 'abc@gmail.com', '9718858541', 'qwerty', 0, 0, '2017-03-16 07:24:44', '16 02 2017', '0000-00-00 00:00:00', NULL, NULL, NULL, 1, 0, NULL, NULL, NULL, NULL, '', '', '', 0, '', ''),
-(15, '3476', 'abc', NULL, NULL, NULL, NULL, 0, 'abc1@gmail.com', '9718858542', 'qwerty', 0, 0, '2017-03-16 07:28:46', '16 January 2017', '0000-00-00 00:00:00', NULL, NULL, NULL, 1, 0, NULL, NULL, NULL, NULL, '', '', '', 0, '', ''),
-(23, '561', 'abcd', NULL, NULL, NULL, NULL, 0, 'abcd1@gmail.com', '9718858545', 'qwerty', 0, 0, '2017-03-18 06:18:13', '18 Mar 2017', '0000-00-00 00:00:00', NULL, NULL, NULL, 1, 0, NULL, NULL, NULL, NULL, '', '', '', 0, '', ''),
-(21, '3933', 'panshul', NULL, NULL, NULL, NULL, 0, 'abcd@gmail.com', '9718899951', 'technicalerror', 0, 0, '2017-03-18 05:17:30', '25 Mar 1970', '0000-00-00 00:00:00', NULL, NULL, NULL, 1, 0, NULL, NULL, NULL, NULL, '', '', '', 0, '', ''),
-(26, '2648', 'dhcg', NULL, NULL, NULL, NULL, 0, 'shchfjnb@gmail.com', '9875888555', 'dgjcjb', 0, 0, '2017-03-20 05:32:52', '20 Mar 1990', '0000-00-00 00:00:00', NULL, NULL, NULL, 1, 0, NULL, NULL, NULL, NULL, '', '', '', 0, '', ''),
-(11, '2823', 'ashima', NULL, NULL, NULL, NULL, 0, 'ashima.honestexpress', '9891063997', 'qwerty', 0, 0, '2017-03-16 05:28:48', '16-3-1992', '0000-00-00 00:00:00', NULL, NULL, NULL, 1, 0, NULL, NULL, NULL, NULL, '', '', '', 0, '', ''),
-(1, 'Shashank_2484', 'Shashank', NULL, NULL, NULL, NULL, 0, 'abe@gmail.com', '989765767', 'hello', 0, 0, '2017-03-11 10:39:30', '24-02-2017', '0000-00-00 00:00:00', NULL, NULL, NULL, 1, 0, NULL, NULL, NULL, NULL, '', '', '', 0, '', ''),
-(28, '1093', 'Panshul ', NULL, NULL, NULL, NULL, 0, 'capriconpanshul@gmai', '9958022155', 'qwerty', 0, 0, '2017-03-21 05:03:25', '27 Dec 1992', '0000-00-00 00:00:00', NULL, NULL, NULL, 1, 0, NULL, NULL, NULL, NULL, '', '', '', 0, '', ''),
-(25, '187', 'sourabh', NULL, NULL, NULL, NULL, 0, 'sourabh.bh@gmail.com', '9999374992', 'qwerty', 0, 0, '2017-03-18 12:45:03', '18 Mar 1980', '0000-00-00 00:00:00', NULL, NULL, NULL, 1, 0, NULL, NULL, NULL, NULL, '', '', '', 0, '', '');
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
