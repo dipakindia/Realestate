@@ -1,3 +1,4 @@
+<?php include('includes/login-check.php'); ?>
 <?php 
 include('includes/config.php');
 /*	echo '<pre>';
