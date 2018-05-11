@@ -1,5 +1,6 @@
-<?php include('includes/login-check.php'); ?>
-<?php include('includes/config.php');
+<?php 
+include('includes/config.php');
+include('login-check-owner.php');
 $error = $success = '';
 if(isset($_POST['sign_submit'])){
 	//echo '<pre>';

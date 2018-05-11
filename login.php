@@ -1,5 +1,5 @@
 <?php include('includes/config.php');
-	$error = '';
+$error = '';
 if(isset($_POST['login_submit'])){
 	//echo '<pre>';
 	//print_r($_POST);
