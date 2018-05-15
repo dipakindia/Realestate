@@ -7,8 +7,8 @@
       <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
         <ul class="top-social-media pull-right">
         <?php if($_SESSION['isLogin']){ ?>
-          <li> <a href="user-profile.php" class="sign-in"><i class="fa fa-user"></i> My Account</a> </li>
-          <li> <a href="logout.php" class="sign-in"><i class="fa fa-sign-in"></i> Logout</a> </li>
+          <li> <a href="user-profile.php" class="sign-in"><i class="fa fa-sign-in"></i> My Account</a> </li>
+          <li> <a href="logout.php" class="sign-in"><i class="fa fa-user"></i> Logout</a> </li>
         <?php }else{ ?>
           <li> <a href="login.php" class="sign-in"><i class="fa fa-sign-in"></i> Login</a> </li>
           <li> <a href="signup.php" class="sign-in"><i class="fa fa-user"></i> Register</a> </li>

@@ -10,10 +10,60 @@ if(isset($_POST['sign_submit'])){
 	}else{
 		
 			extract($_POST);
-			//die;
-			//echo "INSERT INTO `tbl_user_records`(`first_name`, `last_name`, `email_id`, `mobile`, `password`, `date`, `is_merchant`) VALUES ('".$first_name."','".$last_name."','".$email."','".$mobile."','".$password."','".date("Y-m-d H:i:s")."','".$user_type."')";die;
-			$insertSql = mysql_query("INSERT INTO `tbl_user_records`(`first_name`, `last_name`, `email_id`, `mobile`, `password`, `date`, `is_merchant`) VALUES ('".$first_name."','".$last_name."','".$email."','".$mobile."','".$password."','".date("Y-m-d H:i:s")."','".$user_type."')");
+			//die;//
+			//echo "INSERT INTO `tbl_user_records`(`first_name`, `last_name`, `email_id`, `password`, `date`, `is_merchant`) VALUES ('".$first_name."','".$last_name."','".$email."','".$password."','".date("Y-m-d H:i:s")."','".$user_type."')";die;
+			$insertSql = mysql_query("INSERT INTO `tbl_user_records`(`first_name`, `last_name`, `email_id`, `password`, `date`, `is_merchant`) VALUES ('".$first_name."','".$last_name."','".$email."','".$password."','".date("Y-m-d H:i:s")."','".$user_type."')");
 			if($insertSql){
+				$to = $email;
+				$subject = "Your Canada Latting account confirmation!!";
+				
+				$message = '<html>
+<head>
+<title>HTML email</title>
+</head>
+<body>
+<table>
+  <tbody>
+    <tr>
+      <td>Dear '.$first_name.',</td>
+    </tr>
+    <tr>
+      <td><br></td>
+    </tr>
+    <tr>
+      <td>Congratulations! You have successfully regitered.</td>
+    </tr>
+    <tr>
+      <td><br></td>
+    </tr>
+    <tr>
+      <td>For confermation of your Account: &nbsp;<a href="http://realestate.indiainfosystem.com/verify-email.php?user-email='.md5($email).'" >click here </a>.</td>
+    </tr>
+    <tr>
+      <td><br></td>
+    </tr>
+    <tr>
+      <td>Regards,</td>
+    </tr>
+    <tr>
+      <td><strong>Canada Latting </strong></td>
+    </tr>
+  </tbody>
+</table>
+<p>&nbsp;</p>
+</body>
+</html>
+';
+				
+				// Always set content-type when sending HTML email
+				$headers = "MIME-Version: 1.0" . "\r\n";
+				$headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
+				
+				// More headers
+				$headers .= 'From: <info@indiainfosystem.com>' . "\r\n";
+				$headers .= 'Cc: dipak.yts@gmail.com' . "\r\n";
+				
+				mail($to,$subject,$message,$headers);
 				$success = "User successfully registered. please check your mail for verify!.";
 			}else{
 				$error = "Error in registration!!";

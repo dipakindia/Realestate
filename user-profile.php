@@ -1,6 +1,8 @@
-<?php include('includes/login-check.php'); ?>
 <?php 
 include('includes/config.php');
+include('includes/login-check.php'); ?>
+<?php 
+
 /*	echo '<pre>';
 	print_r($_SESSION);
 	die;*/

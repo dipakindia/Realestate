@@ -1,4 +1,3 @@
-
 <?php include('includes/config.php'); ?>
 <!DOCTYPE html>
 <html lang="zxx">
@@ -12,108 +11,9 @@
 <div class="page_loader"></div>
 <?php include('includes/header.php'); ?>
 <?php include('includes/banner.php'); ?>
-<!-- Search area start
-<div class="search-area">
-    <div class="container">
-        <div class="search-area-inner">
-            <div class="search-contents ">
-                <form method="GET">
-                    <div class="row">
-                        <div class="col-lg-3 col-md-3 col-sm-6 col-xs-6">
-                            <div class="form-group">
-                                <select class="selectpicker search-fields" name="area-from" data-live-search="true" data-live-search-placeholder="Search value">
-                                    <option>Area From</option>
-                                    <option>1000</option>
-                                    <option>800</option>
-                                    <option>600</option>
-                                    <option>400</option>
-                                    <option>200</option>
-                                    <option>100</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="col-lg-3 col-md-3 col-sm-6 col-xs-6">
-                            <div class="form-group">
-                                <select class="selectpicker search-fields" name="property-status" data-live-search="true" data-live-search-placeholder="Search value">
-                                    <option>Property Status</option>
-                                    <option>For Sale</option>
-                                    <option>For Rent</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="col-lg-3 col-md-3 col-sm-6 col-xs-6">
-                            <div class="form-group">
-                                <select class="selectpicker search-fields" name="location" data-live-search="true" data-live-search-placeholder="Search value">
-                                    <option>Location</option>
-                                    <option>United States</option>
-                                    <option>United Kingdom</option>
-                                    <option>American Samoa</option>
-                                    <option>Belgium</option>
-                                    <option>Cameroon</option>
-                                    <option>Canada</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="col-lg-3 col-md-3 col-sm-6 col-xs-6">
-                            <div class="form-group">
-                                <select class="selectpicker search-fields" name="property-types" data-live-search="true" data-live-search-placeholder="Search value">
-                                    <option>Property Types</option>
-                                    <option>Residential</option>
-                                    <option>Commercial</option>
-                                    <option>Land</option>
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-lg-3 col-md-3 col-sm-6 col-xs-6">
-                            <div class="form-group">
-                                <select class="selectpicker search-fields" name="bedrooms" data-live-search="true" data-live-search-placeholder="Search value" >
-                                    <option>Bedrooms</option>
-                                    <option>1</option>
-                                    <option>2</option>
-                                    <option>3</option>
-                                    <option>4</option>
-                                    <option>5</option>
-                                    <option>6</option>
-                                    <option>7</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="col-lg-3 col-md-3 col-sm-6 col-xs-6">
-                            <div class="form-group">
-                                <select class="selectpicker search-fields" name="bathrooms" data-live-search="true" data-live-search-placeholder="Search value" >
-                                    <option>Bathrooms</option>
-                                    <option>1</option>
-                                    <option>2</option>
-                                    <option>3</option>
-                                    <option>4</option>
-                                    <option>5</option>
-                                    <option>6</option>
-                                    <option>7</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="col-lg-3 col-md-3 col-sm-6 col-xs-6">
-                            <div class="form-group">
-                                <div class="range-slider">
-                                    <div data-min="0" data-max="150000" data-unit="USD" data-min-name="min_price" data-max-name="max_price" class="range-slider-ui ui-slider" aria-disabled="false"></div>
-                                    <div class="clearfix"></div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-3 col-md-3 col-sm-6 col-xs-6 ">
-                            <div class="form-group">
-                                <button class="search-button">Search</button>
-                            </div>
-                        </div>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
-Search area end -->
+<!--Search area start-->
+<?php //include('includes/advanced-search.php'); ?>
+<!--Search area end -->
 <div class="content-area featured-properties">
   <div class="container">
     <div class="main-title">
@@ -121,15 +21,12 @@ Search area end -->
     </div>
     <ul class="list-inline-listing filters filters-listing-navigation">
       <li class="active btn filtr-button filtr" data-filter="all">All</li>
-	  <?php  $product_sql = mysql_query("SELECT * FROM `tbl_product_records` WHERE `status` = '1'");
+	  <?php  $product_sql = mysql_query("SELECT * FROM `tbl_property_type_records` WHERE `status` = '1'");
 		   if(mysql_num_rows($product_sql) > 0){
-		   while($product_row = mysql_fetch_object($product_sql)){
+		   while($pr_type = mysql_fetch_object($product_sql)){
 	 ?>
-      <li data-filter="1" class="btn btn-inline filtr-button filtr">House</li>
+      <li data-filter="<?php echo $pr_type->property_type_id; ?>" class="btn btn-inline filtr-button filtr"><?php echo $pr_type->property_type_name; ?></li>
 	  <?php }} ?>
-      <li data-filter="2" class="btn btn-inline filtr-button filtr">Residential</li>
-      <li data-filter="3" class="btn btn-inline filtr-button filtr">Apartment</li>
-      <li data-filter="4" class="btn btn-inline filtr-button filtr">Student</li>
     </ul>
     <div class="row">
       <div class="filtr-container">
@@ -137,7 +34,7 @@ Search area end -->
 		   if(mysql_num_rows($product_sql) > 0){
 		   while($product_row = mysql_fetch_object($product_sql)){
 	 ?>
-        <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12  filtr-item" data-category="1, 2, 3">
+        <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12  filtr-item" data-category="<?php echo $product_row->features_ids; ?>">
           <div class="property">
             <div class="property-img">
               <div class="property-tag button alt featured">Featured</div>
@@ -342,7 +239,14 @@ Search area end -->
       <div class="carousel our-partners slide" id="ourPartners2">
         <div class="col-lg-12 mrg-btm-30"> <a class="right carousel-control" href="#ourPartners2" data-slide="prev"><i class="fa fa-chevron-left icon-prev"></i></a> <a class="right carousel-control" href="#ourPartners2" data-slide="next"><i class="fa fa-chevron-right icon-next"></i></a> </div>
         <div class="carousel-inner">
-          <div class="item active">
+		 <?php  
+		 $product_sql = mysql_query("SELECT * FROM `tbl_product_records` WHERE `status` = '1' limit 0,7");
+		   if(mysql_num_rows($product_sql) > 0){
+		   $a = 0;
+		   while($product_row = mysql_fetch_object($product_sql)){
+		   $a++;
+	 ?>
+          <div class="item <?php if($a == 1){ echo "active"; }?>">
             <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
               <div class="property-2">
                 <div class="property-img">
@@ -356,19 +260,20 @@ Search area end -->
                   </div>
                 </div>
                 <div class="content">
-                  <h4 class="title"> <a href="#">Big Head House</a> </h4>
-                  <h3 class="property-address"> <a href="#"> <i class="fa fa-map-marker"></i>123 Kathal St. Tampa City, </a> </h3>
+                  <h4 class="title"> <a href="#"><?php echo $product_row->product_title; ?></a> </h4>
+                  <h3 class="property-address"> <a href="#"> <i class="fa fa-map-marker"></i><?php echo $product_row->address; ?> </a> </h3>
                 </div>
                 <ul class="facilities-list clearfix">
-                  <li> <i class="flaticon-square-layouting-with-black-square-in-east-area"></i> <span>4800 sq ft</span> </li>
-                  <li> <i class="flaticon-bed"></i> <span>3</span> </li>
-                  <li> <i class="flaticon-holidays"></i> <span>2</span> </li>
-                  <li> <i class="flaticon-vehicle"></i> <span>1</span> </li>
+                  <li> <i class="flaticon-square-layouting-with-black-square-in-east-area"></i> <span><?php echo $product_row->area; ?> sq ft</span> </li>
+                  <li> <i class="flaticon-bed"></i> <span><?php echo $product_row->rooms; ?></span> </li>
+                  <li> <i class="flaticon-holidays"></i> <span><?php echo $product_row->bathrooms; ?></span> </li>
+                  <li> <i class="flaticon-vehicle"></i> <span><?php echo $product_row->parking; ?></span> </li>
                 </ul>
               </div>
             </div>
           </div>
-          <div class="item">
+		  <?php }} ?>
+         <!-- <div class="item">
             <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
               <div class="property-2">
                 <div class="property-img">
@@ -445,7 +350,7 @@ Search area end -->
                 </ul>
               </div>
             </div>
-          </div>
+          </div>-->
         </div>
       </div>
     </div>
