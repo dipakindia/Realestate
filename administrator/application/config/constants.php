@@ -88,7 +88,7 @@ define('ERROR_OFFER_ID_REQ', "Offer Id Should not be Blank!");
 define('SITE_NAME','Canada Lettings');
 //define('SITE_LOGO','http://localhost/PropertyApp/uploads/logo.png');
 define('SITE_LOGO','http://mysolutions4u.in/PropertyApp/uploads/logo.png');
-define('BASE_URLD','http://realestate.indiainfosystem.com/administrator/');
+define('BASE_URLD','http://localhost/blog/Realestate/administrator/');
 //define('BASE_URLD','http://realestate.indiainfosystem.com/administrator/');
 define('ERROR_USER_AND_PASS_REQ','Mobile/Email and Password should Not be Blank!!');
 define('ERROR_USER_REQ','Mobile/Email should Not be Blank!!');

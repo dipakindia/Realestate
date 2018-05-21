@@ -34,9 +34,10 @@ class Dashboard_model extends CI_Model {
 		}
 	}
 	//Get All Users List
-	public function get_user_list(){
+	public function get_user_list($flag){
 		$this->db->select('*');
 		$this->db->from('tbl_user_records');
+		$this->db->where('is_merchant',$flag);
 		$query = $this->db->get();
 		foreach($query->result() as $res){
 		$res->date_diff = $this->calculate_time_span($res->date);

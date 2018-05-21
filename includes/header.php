@@ -6,7 +6,8 @@
       </div>
       <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
         <ul class="top-social-media pull-right">
-        <?php if($_SESSION['isLogin']){ ?>
+        <?php
+		 if($_SESSION['isLogin']){ ?>
           <li> <a href="user-profile.php" class="sign-in"><i class="fa fa-user"></i> My Account</a> </li>
           <li> <a href="logout.php" class="sign-in"><i class="fa fa-sign-in"></i> Logout</a> </li>
         <?php }else{ ?>
@@ -51,9 +52,11 @@
             </ul>
           </li>
         </ul>
+		<?php if($_SESSION['isAgent'] || !$_SESSION['isLogin']){ ?>
         <ul class="nav navbar-nav navbar-right rightside-navbar">
           <li> <a href="submit-property.php" class="button"> Submit Property </a> </li>
         </ul>
+		<?php } ?>
       </div>
     </nav>
   </div>

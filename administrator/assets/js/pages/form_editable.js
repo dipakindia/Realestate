@@ -31,7 +31,7 @@ $(function() {
 
     // Buttons
     $.fn.editableform.buttons = 
-        '<button type="submit" class="btn btn-primary btn-icon editable-submit merchant-submit"><i class="icon-check"></i></button>' +
+        '<button type="submit" class="btn btn-primary btn-icon editable-submit"><i class="icon-check"></i></button>' +
         '<button type="button" class="btn btn-default btn-icon editable-cancel"><i class="icon-x"></i></button>';
 
 
@@ -93,8 +93,6 @@ $(function() {
 
     // Editable text field
     $('#text-field').editable();
-	
-	$('#input-offer_limit').editable();
 
 
     // Disable clear button
@@ -429,18 +427,16 @@ $(function() {
         showbuttons: 'bottom',
         tpl: '<div class="checkbox"></div>'
     });
-	var filtrDta = $('#filter_data').text();
+
     // Styled checklist
     $('#styled-checklist').editable({
-        source: filtrDta,
-        showbuttons: 'bottom',
-        tpl: '<div class="checkbox"></div>'
-    });
-	
-	var catDta = $('#cat_data').text();
-    // Styled checklist
-    $('#styled-checklist-cat').editable({
-        source: catDta,
+        source: [
+            {value: 1, text: 'banana'},
+            {value: 2, text: 'peach'},
+            {value: 3, text: 'apple'},
+            {value: 4, text: 'watermelon'},
+            {value: 5, text: 'orange'}
+        ],
         showbuttons: 'bottom',
         tpl: '<div class="checkbox"></div>'
     });
@@ -712,11 +708,7 @@ $(function() {
         url: '/post-fields',
         title: 'Enter your email'
     });
-	// office Email
-    $('#type-email-office').editable({
-        url: '/post-fields',
-        title: 'Enter your office email'
-    });
+
     // Url
     $('#type-url').editable({
         url: '/post-fields',
@@ -728,11 +720,6 @@ $(function() {
         url: '/post-fields',
         title: 'Enter phone number'
     });
-// Office Tel
-    $('#type-tel-office').editable({
-        url: '/post-fields',
-        title: 'Enter phone number'
-    });	
 
     // Number
     $('#type-number').editable({
@@ -883,7 +870,7 @@ $(function() {
     $('#input-touchspin-basic').on('shown', function(e, editable) {
         editable.input.$input.TouchSpin({
             min: 0,
-            max: 10000000000000000,
+            max: 100,
             step: 0.1,
             decimals: 2
         }).parent().parent().addClass('editable-touchspin');

@@ -35,14 +35,23 @@ class Dashboard extends CI_Controller {
 		$this->load->view('dashboard/index', $data);
 		$this->load->view('footer');
 	}
-	public function users(){
-		$data['alldata'] = $this->dashboard_model->get_user_list();
+	public function owners(){
+		$array = array('is_merchant' => 1, 'status' => 1);
+		$data['alldata'] =  $this->dashboard_model->getMultipleData('tbl_user_records',$array);
 		$this->load->view('header');
 		$this->load->view('users/index', $data);
 		$this->load->view('footer');
 	}	
-	public function merchant_request(){
-		$data['alldata'] = $this->dashboard_model->getMultipleData('tbl_user_records','is_merchant=2');
+	public function users(){
+		$array = array('is_merchant' => 0);
+		$data['alldata'] =  $this->dashboard_model->getMultipleData('tbl_user_records',$array);
+		$this->load->view('header');
+		$this->load->view('users/index', $data);
+		$this->load->view('footer');
+	}	
+	public function pending_owner(){
+	$array = array('is_merchant' => 1, 'status' => 0);
+		$data['alldata'] = $this->dashboard_model->getMultipleData('tbl_user_records',$array);
 		$this->load->view('header');
 		$this->load->view('users/index', $data);
 		$this->load->view('footer');
@@ -512,7 +521,7 @@ class Dashboard extends CI_Controller {
 		}
 		
 	}
-	public function add_offer(){
+	public function add_banner(){
 		$product_id = $this->uri->segment(3);
 		// create the data object
 		$data = new stdClass();
@@ -538,10 +547,10 @@ class Dashboard extends CI_Controller {
 			
 		} else {			
 			if ($this->dashboard_model->add_offer($this->input->post())) {
-				$data->success = "Offer successfully Added!";
+				$data->success = "Banner successfully Added!";
 				// user creation ok
 				$this->load->view('header');
-				$this->load->view('offer/add_offer', $data);
+				$this->load->view('offer/add_banner', $data);
 				$this->load->view('footer');
 				
 			} else {

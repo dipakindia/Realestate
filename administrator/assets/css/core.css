@@ -38,14 +38,6 @@
 *  Latest update: Mar 10, 2016
 *
 * ---------------------------------------------------------------------------- */
-.succ_msg {
-    background: #fff none repeat scroll 0 0;
-    border-left: 5px solid green;
-    margin-bottom: 10px;
-    padding: 7px 15px;
-    width: 66%;
-}
-
 html {
   height: 100%;
 }

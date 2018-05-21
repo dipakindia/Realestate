@@ -1,0 +1,1 @@
+[15-May-2018 18:21:34 UTC] PHP Warning:  session_destroy(): Trying to destroy uninitialized session in /home/overseastask/public_html/logout.php on line 2

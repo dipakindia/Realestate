@@ -9,18 +9,19 @@ $menuTrigger = 0;
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Dashboard | <?php echo SITE_NAME; ?></title>
 <!-- Global stylesheets -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <link href="https://fonts.googleapis.com/css?family=Roboto:400,300,100,500,700,900" rel="stylesheet" type="text/css">
-<link href="http://realestate.indiainfosystem.com/administrator/assets/css/icons/icomoon/styles.css" rel="stylesheet" type="text/css">
-<link href="http://realestate.indiainfosystem.com/administrator/assets/css/bootstrap.css" rel="stylesheet" type="text/css">
-<link href="http://realestate.indiainfosystem.com/administrator/assets/css/core.css" rel="stylesheet" type="text/css">
-<link href="http://realestate.indiainfosystem.com/administrator/assets/css/components.css" rel="stylesheet" type="text/css">
-<link href="http://realestate.indiainfosystem.com/administrator/assets/css/colors.css" rel="stylesheet" type="text/css">
+<link href="<?php echo BASE_URLD; ?>/assets/css/icons/icomoon/styles.css" rel="stylesheet" type="text/css">
+<link href="<?php echo BASE_URLD; ?>/assets/css/bootstrap.css" rel="stylesheet" type="text/css">
+<link href="<?php echo BASE_URLD; ?>/assets/css/core.css" rel="stylesheet" type="text/css">
+<link href="<?php echo BASE_URLD; ?>/assets/css/components.css" rel="stylesheet" type="text/css">
+<link href="<?php echo BASE_URLD; ?>/assets/css/colors.css" rel="stylesheet" type="text/css">
 <!-- /global stylesheets -->
 <!-- Core JS files -->
-<script type="text/javascript" src="http://realestate.indiainfosystem.com/administrator/assets/js/plugins/loaders/pace.min.js"></script>
-<script type="text/javascript" src="http://realestate.indiainfosystem.com/administrator/assets/js/core/libraries/jquery.min.js"></script>
-<script type="text/javascript" src="http://realestate.indiainfosystem.com/administrator/assets/js/core/libraries/bootstrap.min.js"></script>
-<script type="text/javascript" src="http://realestate.indiainfosystem.com/administrator/assets/js/plugins/loaders/blockui.min.js"></script>
+<script type="text/javascript" src="<?php echo BASE_URLD; ?>/assets/js/plugins/loaders/pace.min.js"></script>
+<script type="text/javascript" src="<?php echo BASE_URLD; ?>/assets/js/core/libraries/jquery.min.js"></script>
+<script type="text/javascript" src="<?php echo BASE_URLD; ?>/assets/js/core/libraries/bootstrap.min.js"></script>
+<script type="text/javascript" src="<?php echo BASE_URLD; ?>/assets/js/plugins/loaders/blockui.min.js"></script>
 <!-- /core JS files -->
 </head>
 <body><!---->
@@ -168,7 +169,7 @@ $menuTrigger = 0;
               <div class="media-body"> <span class="media-heading text-semibold">
                 <?php //$_SESSION['username'];?>
                 </span>
-                <div class="text-size-mini text-muted"> <i class="icon-pin text-size-small"></i> &nbsp;
+                <div class="text-size-mini text-muted"> <!--<i class="icon-pin text-size-small"></i>--> &nbsp;
                   <?php //$_SESSION['event_user_email'];?>
                 </div>
               </div>
@@ -195,10 +196,18 @@ $menuTrigger = 0;
       <!-- Main -->
       <li class="navigation-header"><span>Main</span> <i class="icon-menu" title="Main pages"></i></li>
       <li <?php if($menuTrigger == ''){?>class="active"<?php }?>><a href="<?=site_url('Dashboard');?>"><i class="icon-home4"></i> <span>Dashboard</span></a></li>
-	  <li <?php if($menuTrigger == 'users' || $menuTrigger == 'merchant_request' || $menuTrigger == 'add_user' ){?>class="active"<?php }?>> <a href="#"><i class="icon-users"></i> <span> Banner Management<!--<span class="label bg-blue-400">1.3</span>--></span></a>
+	  <li> <a href="#"><i class="icon-users"></i> <span> Banner Management<!--<span class="label bg-blue-400">1.3</span>--></span></a>
 		<ul>
-          <li <?php if($menuTrigger == 'users'){?>class="active"<?php }?>><a href="<?=site_url('Dashboard/users');?>">All Slides</a></li>
-		  <li <?php if($menuTrigger == 'add_user'){?>class="active"<?php }?>><a href="<?=site_url('Dashboard/add_user');?>">Add Slide</a></li>
+          <li><a href="#">All Slides</a></li>
+		  <li><a href="#">Add Slide</a></li>
+        </ul>
+		 </li>
+		 <li <?php if($menuTrigger == 'owners' || $menuTrigger == 'pending_owner' || $menuTrigger == 'pending_property'  || $menuTrigger == 'add_agent' ){?>class="active"<?php }?>> <a href="#"><i class="icon-users"></i> <span> Agent/ Owner Management<!--<span class="label bg-blue-400">1.3</span>--></span></a>
+		<ul>
+<li <?php if($menuTrigger == 'owners'){?>class="active"<?php }?>><a href="<?=site_url('Dashboard/owners');?>">Agent/ Owner List</a></li>
+<li <?php if($menuTrigger == 'pending_owner'){?>class="active"<?php }?>><a href="<?=site_url('Dashboard/pending_owner');?>">Account Request Pending</a></li>
+<li <?php if($menuTrigger == 'pending_property'){?>class="active"<?php }?>><a href="#">Property Listing Pending</a></li>
+<li <?php if($menuTrigger == 'add_agent'){?>class="active"<?php }?>><a href="#">Add User</a></li>
         </ul>
 		 </li>
       <li <?php if($menuTrigger == 'users' || $menuTrigger == 'merchant_request' || $menuTrigger == 'add_user' ){?>class="active"<?php }?>> <a href="#"><i class="icon-users"></i> <span> User Management<!--<span class="label bg-blue-400">1.3</span>--></span></a>
@@ -207,18 +216,7 @@ $menuTrigger = 0;
 		  <li <?php if($menuTrigger == 'add_user'){?>class="active"<?php }?>><a href="<?=site_url('Dashboard/add_user');?>">Add User</a></li>
         </ul>
 		 </li>
-		      <li <?php if($menuTrigger == 'sub_admins' || $menuTrigger == 'add_sub_admin' ){?>class="active"<?php }?>> <a href="#"><i class="icon-users"></i> <span>Agent/ Owner Management
-        <!--<span class="label bg-blue-400">1.3</span>-->
-        </span></a>
-		<ul>
-          <li <?php if($menuTrigger == 'sub_admins'){?>class="active"<?php }?>><a href="<?=site_url('Dashboard/sub_admins');?>">Agent/ Owner List
- </a></li>
-		  <li <?php if($menuTrigger == 'add_sub_admin'){?>class="active"<?php }?>><a href="<?=site_url('Dashboard/add_sub_admin');?>">Add New</a></li>
-<li <?php if($menuTrigger == 'add_sub_admin'){?>class="active"<?php }?>><a href="<?=site_url('Dashboard/add_sub_admin');?>">Account Request Pending</a></li>
-<li <?php if($menuTrigger == 'add_sub_admin'){?>class="active"<?php }?>><a href="<?=site_url('Dashboard/add_sub_admin');?>">Property Listing Pending</a></li>
-        </ul>
-		 </li>
-		<li <?php if($menuTrigger == 'users' || $menuTrigger == 'merchant_request' || $menuTrigger == 'add_user' ){?>class="active"<?php }?>> <a href="#"><i class="icon-users"></i> <span> Equiry Management<!--<span class="label bg-blue-400">1.3</span>--></span></a>
+		<li> <a href="#"><i class="icon-users"></i> <span> Equiry Management<!--<span class="label bg-blue-400">1.3</span>--></span></a>
 		<!--<ul>
           <li <?php if($menuTrigger == 'users'){?>class="active"<?php }?>><a href="<?=site_url('Dashboard/users');?>">All Users</a></li>
 		  <li <?php if($menuTrigger == 'add_user'){?>class="active"<?php }?>><a href="<?=site_url('Dashboard/add_user');?>">Add User</a></li>
@@ -228,14 +226,14 @@ $menuTrigger = 0;
         <!--<span class="label bg-blue-400">1.3</span>-->
         </span></a>
         <ul>
-          <li <?php if($menuTrigger == 'categories'){?>class="active"<?php }?>><a href="<?=site_url('Dashboard/categories');?>">All Testimonials</a></li>
-          <li <?php if($menuTrigger == 'add_category'){?>class="active"<?php }?>><a href="<?=site_url('Dashboard/add_category');?>">Add Testimonial</a></li>
+          <li <?php if($menuTrigger == 'categories'){?>class="active"<?php }?>><a href="#">All Testimonials</a></li>
+          <li <?php if($menuTrigger == 'add_category'){?>class="active"<?php }?>><a href="#">Add Testimonial</a></li>
         </ul>
       </li>
-	<li <?php if($menuTrigger == 'users' || $menuTrigger == 'merchant_request' || $menuTrigger == 'add_user' ){?>class="active"<?php }?>> <a href="#"><i class="icon-users"></i> <span> Brand Partner Management<!--<span class="label bg-blue-400">1.3</span>--></span></a>
+	<li> <a href="#"><i class="icon-users"></i> <span> Brand Partner Management<!--<span class="label bg-blue-400">1.3</span>--></span></a>
 		<ul>
-          <li <?php if($menuTrigger == 'users'){?>class="active"<?php }?>><a href="<?=site_url('Dashboard/users');?>">All brand Partner</a></li>
-		  <li <?php if($menuTrigger == 'add_user'){?>class="active"<?php }?>><a href="<?=site_url('Dashboard/add_user');?>">Add brand Partner</a></li>
+          <li><a href="#">All brand Partner</a></li>
+		  <li><a href="#">Add brand Partner</a></li>
         </ul>
 		 </li>
 

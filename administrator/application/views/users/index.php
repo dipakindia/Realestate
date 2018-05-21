@@ -51,8 +51,7 @@
             <th>User&nbsp;Name</th>
             <th>User&nbsp;Email</th>
             <th>User&nbsp;Contact</th>
-            <!--<th>Date</th>-->
-            <th>Merchant</th>
+            <th>Date</th>
             <th>Status</th>
             <th pclass="text-center">Actions</th>
           </tr>
@@ -70,7 +69,7 @@
             <td><?=$data->email_id;?></td>
             <td><?=$data->mobile;?></td>
             <?php /*?><td class="td-exp" style="width: 110px;"><?=$data->date_diff;?></td><?php */?>
-            <td><?php if($data->is_merchant == '2'){ echo '<span class="label label-success" data-action="merchant-form" data-mer-id ="'.$data->id.'">Request</span>';   }else if($data->is_merchant == '1'){ echo '<span class="label label-success">Yes</span><br />'.$data->business_name;   }else{ echo '<span class="label label-default">No</span>'; }?></td>
+            <td><?php echo $data->date;?></td>
             <td id="upbtn_<?=$data->id;?>"><?php if($data->status == '1'){ echo '<span title="Click to Inactive" class="label label-success" onclick="updateData('.$data->id.',0)">Active</span>'; }else{ echo '<span title="Click to Active" class="label label-default"  onclick="updateData('.$data->id.',1)">Inactive</span>'; }?></td>
             <td class="text-center"><ul class="icons-list">
                 <li><a href="<?php echo site_url().'/dashboard/user_information/'.$data->id;?>" title="View Detail"><i class="icon-arrow-right16"></i></a><a href="javascript:void(0)" onClick="deleteData(<?=$data->id;?>)"><i class="icon-trash-alt"></i></a></li>
